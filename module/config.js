@@ -6,10 +6,10 @@ hibern.CS = 20;
 hibern.ASSeuil = 25;
 
 hibern.rolldiff = {
-    veryeasy: 8,
-    easy: 12,
-    normal: 14,
-    hard: 16,
+    veryeasy: 4,
+    easy: 8,
+    normal: 12,
+    hard: 14,
     veryhard: 18
 }
 
@@ -30,7 +30,14 @@ hibern.corePostures = [
     "Base",
     "Def",
     "Off",
-    "Rea",
-    "Fuy",
-    "Hib"
+    "Fuy"
 ];
+
+hibern.statusEffects = [
+    // Burned
+    {
+        id: "burned",
+        name: "hibern.StatusEffects.Burned",
+        icon: "icons/svg/blood.svg"
+    }
+]

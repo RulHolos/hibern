@@ -35,10 +35,22 @@
             },
             "invocations": {
                 "invocationList": []
+            },
+            "MetaData": {
+                "WillModifer": 0,
+                "PVModfier": 0,
+                "FORMod": 0,
+                "MAGMod": 0,
+                "DEXMod": 0,
+                "CONMod": 0,
+                "ERUMod": 0,
+                "CHAMod": 0,
+                "FatigueAugmentationMod": 0,
+                "FatigueSeuilMod": 0
             }
         },
         "personnage": {
-            "templates": ["commonStats", "description", "checks", "combat", "invocations"]
+            "templates": ["commonStats", "description", "checks", "combat", "invocations", "MetaData"]
         },
         "invocation": {
             "templates": ["commonStats", "description", "checks", "combat"]
@@ -50,30 +62,38 @@
         }
     },
     "Item": {
-        "types": ["Arme", "Armure", "Accessoire", "Objet", "Spell Card", "Capacité"],
+        "types": ["Arme", "Armure", "Accessoire", "Objet", "Spell Card", "Capacité", "Jauge"],
         "templates": {
             "description": {
                 "Description": "",
                 "MarchandCost": 0
+            },
+            "activatedEffects": {
+                "activation": {
+                    "type": "",
+                    "cost": null,
+                    "condition": ""
+                },
+                "duration": ""
             }
         },
         "Arme": {
-            "templates": ["description"],
+            "templates": ["description", "activatedEffects"],
             "Damage": "0",
             "Equiped": "false"
         },
         "Armure": {
-            "templates": ["description"],
+            "templates": ["description", "activatedEffects"],
             "Reduction": 0,
             "Equiped": "false"
         },
         "Accessoire": {
-            "templates": ["description"],
+            "templates": ["description", "activatedEffects"],
             "StatBonus": "null",
             "Equiped": "false"
         },
         "Objet": {
-            "templates": ["description"],
+            "templates": ["description", "activatedEffects"],
             "Equiped": "false"
         },
         "Spell Card": {
@@ -82,11 +102,13 @@
             "Seuil": 14,
             "Cout": 0,
             "Composante": "Aucune",
+            "ActionType": "Action",
             "AS": false,
             "ASDescription": "",
             "Fatigue": 0,
             "stat": "MAG",
-            "MarchandCost": 0
+            "MarchandCost": 0,
+            "ReussiteAuto": false
         },
         "Capacité": {
             "templates": ["description"],
@@ -95,7 +117,13 @@
             "UsageWhenKO": false,
             "PostureCustom": false,
             "Fatigue": 0,
-            "stat": "MAG"
+            "stat": "MAG",
+            "ReussiteAuto": false
+        },
+        "Jauge": {
+            "min": 0,
+            "value": 0,
+            "max": 10
         }
     }
 }

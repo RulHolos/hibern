@@ -2,16 +2,17 @@
     <h2 class="name" style="margin-bottom: 6px;">Spell Cards
         {{#EditMode actor}}
             <a class="item-create" data-itemname="Spell Card" data-type="Spell Card"><i class="fas fa-plus"></i></a>
+            <small data-tooltip="Reset All Fatigue">(<a class="reset-all-fatigue"><i class="fas fa-recycle"></i></a>)</small>
         {{/EditMode}}</h2>
     <table class="baseatktable">
         <tr style="text-align: center; background-color: white;">
             <th>
                 <a class="roll-baseatk" data-type="Physic" data-ctx="Atk" style="text-decoration: underline;">{{localize "hibern.chars.atkPhysic"}}</a>
-                <a class="roll-baseatk" data-type="Physic" data-ctx="Dmg">(<i class="fas fa-crosshairs"></i>)</a>
+                <a class="roll-baseatk" data-type="Physic" data-ctx="Dmg" data-tooltip="Lancer Dégâts Uniquement">(<i class="fas fa-crosshairs"></i>)</a>
             </th>
             <th>
                 <a class="roll-baseatk" data-type="Magic" data-ctx="Atk" style="text-decoration: underline;">{{localize "hibern.chars.atkMagic"}}</a>
-                <a class="roll-baseatk" data-type="Magic" data-ctx="Dmg">(<i class="fas fa-crosshairs"></i>)</a>
+                <a class="roll-baseatk" data-type="Magic" data-ctx="Dmg" data-tooltip="Lancer Dégâts Uniquement">(<i class="fas fa-crosshairs"></i>)</a>
             </th>
         </tr>
     </table>
@@ -31,12 +32,12 @@
                             <span class="text-flow1 {{#if (eq spell.system.AS true)}}ASName{{/if}}">({{spell.system.Fatigue}}) {{spell.name}}</span>
                         </td>
                         <td>
-                            <span class="text-flow1">{{{spell.system.Description}}}</span>
+                            <span class="text-flow1">{{breaklines spell.system.Description}}</span>
                         </td>
                     {{else}}
                         <td class="spell-name" style="width: 175px;"><a class="use-spellcard fullsizelinkwidth text-flow1
                         {{#if (eq spell.system.AS true)}}ASName{{/if}}" data-itemid="{{spell._id}}">({{spell.system.Fatigue}}) {{spell.name}}</a></td>
-                        <td><span class="text-flow1" style="font-size: 12px;">{{{spell.system.Description}}}</span></td>
+                        <td><span class="text-flow1" style="font-size: 12px;">{{breaklines spell.system.Description}}</span></td>
                     {{/EditMode}}
                 </tr>
                 {{/each}}

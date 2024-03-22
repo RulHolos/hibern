@@ -14,8 +14,12 @@
     <div class="form-group">
         <label><b>{{localize "hibern.chars.Statistique"}}</b></label>
         <select name="Stat">
+            <option value="{{actor.system.FOR.value}}">{{localize "hibern.stats.Force"}}</option>
             <option value="{{actor.system.MAG.value}}">{{localize "hibern.stats.Magie"}}</option>
             <option value="{{actor.system.DEX.value}}" selected>{{localize "hibern.stats.Dextérité"}}</option>
+            <option value="{{actor.system.CON.value}}">{{localize "hibern.stats.Constitution"}}</option>
+            <option value="{{actor.system.ERU.value}}">{{localize "hibern.stats.Erudition"}}</option>
+            <option value="{{actor.system.CHA.value}}">{{localize "hibern.stats.Charisme"}}</option>
         </select>
     </div>
 </form>

@@ -13,6 +13,7 @@
             font-size: large;
             padding: 4px;
             background-color: @main-color;
+            color: @second-color;
             animation: none;
             animation-duration: 10s;
             animation-iteration-count: infinite;
@@ -22,7 +23,15 @@
 
         .ASName {
             background-color: @passif-color;
-            color: @second-color;
+            //color: @second-color;
+            span {
+                background: -webkit-linear-gradient(left, red, yellow, green, cyan, violet); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(right, red, yellow, green, cyan, violet); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(right, red, yellow, green, cyan, violet); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(to right, red , yellow, green, cyan, violet); /* Standard syntax (must be last) */
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
         }
 
         .content {

@@ -2,7 +2,7 @@ export default class HMarchandSheet extends ActorSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             width: 750,
-            height: 500,
+            height: 700,
             resizable: false,
             classes: ["hibern", "sheet", "marchand"],
             tabs: [{

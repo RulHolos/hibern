@@ -3,26 +3,22 @@
         {{#EditMode actor}}
             <a class="item-create" data-itemname="Capacité" data-type="Capacité"><i class="fas fa-plus"></i></a>
         {{/EditMode}}</h2>-->
-    {{#if (eq actor.type "personnage")}}
-        <nav class="tabs name" data-group="primary-tabs">
-            {{#EditMode actor}}
+    <nav class="tabs name" data-group="primary-tabs">
+        {{#EditMode actor}}
             <span class="fullsizelink">
                 <a class="item" data-tab="abilities">{{localize "hibern.chars.abilities"}}</a>
                 <a class="item-create" data-itemname="Capacité" data-type="Capacité"><i class="fas fa-plus"></i></a>
             </span>
-            {{else}}
+            {{#if (eq actor.type "personnage")}}
+                <span class="fullsizelink">{{localize "hibern.chars.summons"}}</span>
+            {{/if}}
+        {{else}}
             <a class="item fullsizelink" data-tab="abilities">{{localize "hibern.chars.abilities"}}</a>
-            {{/EditMode}}
-            {{#ifCond actor.system.invocationList.length '!=' 0}}
-            <a class="item fullsizelink" data-tab="summons">{{localize "hibern.chars.summons"}}</a>
-            {{/ifCond}}
-        </nav>
-    {{else}}
-        <h2 class="name" style="margin-bottom: 0px;">{{localize "hibern.chars.abilities"}}
-        {{#EditMode actor}}
-            <a class="item-create" data-itemname="Capacité" data-type="Capacité"><i class="fas fa-plus"></i></a>
-        {{/EditMode}}</h2>
-    {{/if}}
+            {{#if (eq actor.type "personnage")}}
+                <a class="item fullsizelink" data-tab="summons">{{localize "hibern.chars.summons"}}</a>
+            {{/if}}
+        {{/EditMode}}
+    </nav>
     <div class="content scroll-container table-border">
         <div class="tab" data-tab="abilities" data-group="primary-tabs">
             <table class="item-list">
@@ -43,7 +39,7 @@
                                 </div>
                             </td>
                             <td>
-                                <span class="text-flow1" style="width: 240px;">{{{ability.system.Description}}}</span>
+                                <span class="text-flow1" style="width: 333px;">{{breaklines ability.system.Description}}</span>
                             </td>
                             <td style="width: 20px; text-align: left;">
                                 <span>{{ability.system.Spécialisation}}</span>
@@ -61,7 +57,7 @@
                                     </a>
                                 {{/if}}
                             </td>
-                            <td><span class="text-flow1" style="width: 240px; font-size: 12px;">{{{ability.system.Description}}}</span></td>
+                            <td><span class="text-flow1" style="width: 333px; font-size: 12px;">{{breaklines ability.system.Description}}</span></td>
                             <td style="width: 20px; text-align: left;">
                                 <span>{{ability.system.Spécialisation}}</span>
                             </td>
@@ -71,7 +67,7 @@
                 {{/if}}
             </table>
         </div>
-        <div class="tab" data-tab="summons", data-group="primary-tabs">
+        <div class="tab" data-tab="summons" data-group="primary-tabs">
             <table class="invocation-list scroll-content">
                 {{#if (eq invocations.length 0)}}
                 <tr>

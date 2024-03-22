@@ -2,24 +2,24 @@
   "name": "hibern",
   "title": "Justice",
   "description": "Système de jeu adapté pour Touhou et Myara.",
-  "version": "1.0",
+  "version": "2.0.1",
   "compatibility": {
     "minimum": "10.287",
-    "verified": "10.291",
-    "maximum": "10.291"
+    "verified": "11.315",
+    "maximum": "11.315"
   },
   "url": "https://github.com/AtaeKurri/hibern",
   "manifest": "https://github.com/AtaeKurri/hibern/blob/experimental/system.json",
   "esmodules": ["hibern.js"],
   "styles": ["less/hibern.css"],
-  "initiative": "1d20 + @DEX",
-  "gridDistance": 10,
+  "initiative": "1d6 + @DEX",
+  "gridDistance": 1,
   "gridUnits": "m",
   "socket": true,
   "authors": [
     {
       "name": "Tania Anehina",
-      "discord": "Tania Anehina#6302",
+      "discord": "tania_anehina",
       "email": "hakussura@protonmail.com"
     }
   ],

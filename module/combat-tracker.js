@@ -75,31 +75,50 @@ Hooks.on("renderCombatTracker", async (tracker, html, data) => {
 
 // Reset les actions de tout les tokens présents dans le combat ainsi que leur posture à la base
 Hooks.on("preDeleteCombat", (combat, rendering, id) => {
-    combat.combatants.forEach(resetCombatant);
+    combat.combatants.forEach(resetCombatant, true);
 });
 
 // Reset aussi mais à la fin du round au lieu de quand le combat se termine.
 Hooks.on("combatRound", (combat, roundInfo, data) => {
-    combat.combatants.forEach(resetCombatant);
+    combat.combatants.forEach(resetCombatant, false);
 });
 
-async function resetCombatant(fighter) {
+async function resetCombatant(fighter, resetPosture) {
     let currentActor = game.actors.get(fighter.actorId);
-    if (currentActor.canUserModify(game.user, "update")) {
-        await currentActor.update({
-            system: {
-                actionsUsed: {
-                    "Action": true,
-                    "ActionSE": true,
-                    "Move": true,
-                    "ChangePosture": true,
-                    "Esquiver": true,
-                    "Parer": true,
-                    "Reaction": true
-                },
-                posture: "Base"
-            }
-        });
-        CONFIG.hibern.socket.executeForEveryone("RenderTracker");
+    if (resetPosture) {
+        if (currentActor.canUserModify(game.user, "update")) {
+            await currentActor.update({
+                system: {
+                    actionsUsed: {
+                        "Action": true,
+                        "ActionSE": true,
+                        "Move": true,
+                        "ChangePosture": true,
+                        "Esquiver": true,
+                        "Parer": true,
+                        "Reaction": true
+                    },
+                    posture: "Base"
+                }
+            });
+        }
     }
+    else {
+        if (currentActor.canUserModify(game.user, "update")) {
+            await currentActor.update({
+                system: {
+                    actionsUsed: {
+                        "Action": true,
+                        "ActionSE": true,
+                        "Move": true,
+                        "ChangePosture": true,
+                        "Esquiver": true,
+                        "Parer": true,
+                        "Reaction": true
+                    }
+                }
+            });
+        }
+    }
+    CONFIG.hibern.socket.executeForEveryone("RenderTracker");
 }

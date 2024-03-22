@@ -39,6 +39,7 @@
                                 <option value="DEX">{{localize "hibern.stats.DEX"}}</option>
                                 <option value="CON">{{localize "hibern.stats.CON"}}</option>
                                 <option value="ERU">{{localize "hibern.stats.ERU"}}</option>
+                                <option value="CHA">{{localize "hibern.stats.CHA"}}</option>
                                 <!--<option value="CHA">{{localize "hibern.stats.CHA"}}</option>-->
                             {{/select}}
                         </select>
@@ -55,14 +56,19 @@
                     </div>
                 </div>-->
                 <div class="row" style="height: 60px;">
-                    <div class="col-11">
+                    <div class="col-7">
                         <p class="field-name"><b>{{localize "hibern.objects.Fatigue"}}</b></p>
                         <input name="system.Fatigue" type="number" value="{{item.system.Fatigue}}" placerholder="0" data-dtype="Number" />
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         <p class="field-name"><b>AS</b></p>
                         <input type="checkbox" name="system.AS" value="{{item.system.AS}}" data-dtype="Boolean"
                             {{checked item.system.AS}} style="margin: 0;" />
+                    </div>
+                    <div class="col-4">
+                        <p class="field-name"><b>{{localize "hibern.objects.ReussiteAuto"}}</b></p>
+                        <input type="checkbox" name="system.ReussiteAuto" value="{{item.system.ReussiteAuto}}" data-dtype="Boolean"
+                            {{checked item.system.ReussiteAuto}} style="margin: 0;" />
                     </div>
                 </div>
 
@@ -81,17 +87,38 @@
                     <p class="field-name"><b>Description</b></p>
     <textarea name="system.Description" rows="4" placeholder="Description">{{{item.system.Description}}}</textarea>
                 {{/if}}
-                <p class="field-name"><b>{{localize "hibern.objects.component"}}</b></p>
-                <div style="display: flex; justify-content: center;">
-                    <select name="system.Composante" style="margin: 0; margin-top: 1px;">
-                        <option value="None">None</option>
-                        {{#select item.system.Composante}}
-                            {{#each abilities as |ability id|}}
-                                <option value="{{ability._id}}">{{ability.name}}</option>
-                            {{/each}}
-                        {{/select}}
-                    </select>
+                <div class="row">
+                    <div class="col-6" style="margin-right: 2px;">
+                        <p class="field-name"><b>{{localize "hibern.objects.component"}}</b></p>
+                        <div style="display: flex; justify-content: center;">
+                            <select name="system.Composante" style="margin: 0; margin-top: 1px; width: 150px; text-align: center;">
+                                <option value="None">None</option>
+                                {{#select item.system.Composante}}
+                                    {{#each abilities as |ability id|}}
+                                        <option value="{{ability._id}}">{{ability.name}}</option>
+                                    {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6" style="margin-left: 2px;">
+                        <p class="field-name"><b>{{localize "hibern.objects.ActionType"}}</b></p>
+                        <div style="display: flex; justify-content: center;">
+                            <select name="system.ActionType" style="margin: 0; margin-top: 1px; width: 150px; text-align: center;">
+                                {{#select item.system.ActionType}}
+                                    <option value="Action">{{localize "hibern.actions.Action"}}</option>
+                                    <option value="ActionSE">{{localize "hibern.actions.ActionSE"}}</option>
+                                    <option value="Move">{{localize "hibern.actions.Move"}}</option>
+                                    <option value="ChangePosture">{{localize "hibern.actions.ChangePosture"}}</option>
+                                    <option value="Esquiver">{{localize "hibern.actions.Esquiver"}}</option>
+                                    <option value="Parer">{{localize "hibern.actions.Parer"}}</option>
+                                    <option value="Reaction">{{localize "hibern.actions.Reaction"}}</option>
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
                 </div>
+                
             </div>
         </div>
         <div class="col-5 sheet-header header {{#if (eq item.system.AS true)}}header-AS{{/if}}">

@@ -55,6 +55,12 @@ function registerHandlebarsHelpers() {
                 return options.inverse(this);
         }
     });
+
+    Handlebars.registerHelper('breaklines', function(text) {
+        text = Handlebars.Utils.escapeExpression(text);
+        text = text.replace(/(\r\n|\n|\r)/gm, '<br>');
+        return new Handlebars.SafeString(text);
+    });
 }
 
 function registerSystemSettings() {
@@ -79,7 +85,7 @@ Hooks.once("init", function() {
     // Pour voir les hooks balancés
     //CONFIG.debug.hooks = true;
 
-    CONFIG.Combat.initiative.formula = '1d20+@DEX.value';
+    CONFIG.Combat.initiative.formula = '1d6+@DEX.value';
 
     console.log("Justice | Initialized.");
 });

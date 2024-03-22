@@ -20,6 +20,8 @@
             "Statistiques": "Modifiers",
             "Statistique": "Modifier",
             "EditMode": "Edit Mode",
+            "Meta": "Meta Attributes",
+            "ResetFatigue": "Reset Fatigue",
             "charname": "Character Name",
             "species": "Species",
             "title": "Title",
@@ -27,6 +29,8 @@
             "LWCharging": "Vital State Normal...",
             "NoSpells": "No Spell Cards",
             "abilities": "Abilities",
+            "effects": "Effects",
+            "NoEffects": "No Active Effects",
             "NoAbilities": "No Abilities",
             "summons": "Summons",
             "NoSummons": "No Summons",
@@ -39,13 +43,11 @@
             "postureBase": "Normal",
             "postureDef": "Defensive",
             "postureOff": "Attacking",
-            "postureRea": "Reactive",
             "postureFuy": "Fleeing",
             "postureHib": "Hibernation",
             "tooltipPostureBase": "No bonus. no penalty.",
-            "tooltipPostureDef": "3 damage reduction. Can't attack.",
-            "tooltipPostureOff": "3 dealt damage bonus. 3 taken damage reduction.",
-            "tooltipPostureRea": "You can only use reactions, you can't attack on your turn (except changing postures).",
+            "tooltipPostureDef": "3 dealt damage malus. 3 damage reduction.",
+            "tooltipPostureOff": "3 dealt damage bonus. 3 taken damage augmentation.",
             "tooltipPostureFuy": "You can flee the fight. Speed x2, you can't attack, dodge or parry.",
             "tooltipPostureHib": "You can't use an action or a secondary action. Each turn in this posture gives you +2 initiative. Parry and dodging are in Hard difficulty."
         },
@@ -64,6 +66,7 @@
             "objects": "Objects",
             "object": "Object",
             "ability": "Ability",
+            "abilities": "Abilities",
             "KoUsage": "Usable when KO ?",
             "Spe": "Specialization",
             "Reduction": "Damage reduction",
@@ -71,7 +74,14 @@
             "component": "Component",
             "Fatigue": "Fatigue",
             "Stat": "Statistic",
-            "NotSelling": "I don't own any objects of that type, sorry."
+            "NotSelling": "I don't own any objects of that type, sorry.",
+            "NoWeapon": "No weapon.",
+            "NoArmor": "No armor.",
+            "NoAccessory": "No accessory.",
+            "NoObject": "No object.",
+            "ActionType": "Action Type",
+            "ReussiteAuto": "Auto. Success",
+            "CreateGauge": "New Gauge"
         },
         "rolls": {
             "CS": "Critical Success !!!",
@@ -83,7 +93,8 @@
             "easy": "Easy",
             "normal": "Normal",
             "hard": "Hard",
-            "veryhard": "Very hard"
+            "veryhard": "Very hard",
+            "ReussiteAuto": "Automatic Success !"
         },
         "Divers": {
             "Accepter": "Accept",
@@ -91,6 +102,7 @@
             "EnnemiRoll": "Enemy's roll",
             "Deletion": "Delete an item",
             "ConfirmDeletion": "Would you really like to delete ",
+            "ConfirmFatigueReset": "Would you really like to reset all Fatigue values?",
             "AffectFatigue": "Change Fatigue values?",
             "CharacterRack": "Character Rack",
             "ShowCharacterRack": "Show Character Rack"

@@ -1,8 +1,10 @@
+import Meta_HUD from "../Meta.js";
+
 export default class HCharacterSheet extends ActorSheet {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            width: 700,
-            height: 750,
+            width: 850, //700,
+            height: 960, //750,
             scrollY: [".scroll-container", ".content"],
             resizable: false,
             classes: ["hibern", "sheet", "personnage"],
@@ -65,6 +67,7 @@ export default class HCharacterSheet extends ActorSheet {
             spellcards: data.items.filter(function (item) {return item.type == "Spell Card"}),
             abilities: data.items.filter(function (item) {return item.type == "Capacité"}),
             objets: data.items.filter(function (item) {return item.type == "Objet"}),
+            custom_gauges: data.items.filter(function (item) {return item.type == "Jauge"}),
             invocations: invocationList
         };
 
@@ -84,6 +87,10 @@ export default class HCharacterSheet extends ActorSheet {
             html.find(".roll-baseatk").click(this._rollBasicAtk.bind(this));
             html.find(".delete-summon-reference").click(this._onDeleteSummonReference.bind(this));
             html.find(".open-invocation-sheet").click(this._onOpenInvocationSheet.bind(this));
+            html.find(".reset-all-fatigue").click(this._onResetAllFatigue.bind(this));
+            html.find(".roll_esq").click(this._onRollEsqFromSheet.bind(this));
+
+            html.find("input[data-update-item]").change(this.onUpdateJauge.bind(this));
         
             new ContextMenu(html, ".InventoryItem", this.itemContextMenu);
         }
@@ -153,7 +160,32 @@ export default class HCharacterSheet extends ActorSheet {
                         callback: html => resolve({cancelled: true})
                     }
                 },
-                default: "normal",
+                default: "cancel",
+                close: () => resolve({cancelled: true})
+            }
+            new Dialog(data, null).render(true);
+        });
+    }
+
+    async GetResetConfirmation() {
+        const template = "systems/hibern/templates/partials/reset-fatigue-confirm.hbs";
+        const html = await renderTemplate(template, {});
+
+        return new Promise(resolve => {
+            const data = {
+                title: "Fatigue Reset",
+                content: html,
+                buttons: {
+                    normal: {
+                        label: game.i18n.localize(`hibern.Divers.Accepter`),
+                        callback: html => resolve({cancelled: false})
+                    },
+                    cancel: {
+                        label: game.i18n.localize(`hibern.Divers.Annuler`),
+                        callback: html => resolve({cancelled: true})
+                    }
+                },
+                default: "cancel",
                 close: () => resolve({cancelled: true})
             }
             new Dialog(data, null).render(true);
@@ -239,6 +271,18 @@ export default class HCharacterSheet extends ActorSheet {
         return (items.length == 0) ? false : true;
     }
 
+    async _onResetAllFatigue(event) {
+        let checkOptions = await this.GetResetConfirmation();
+        if (checkOptions.cancelled) {
+            return;
+        }
+
+        lowerAllOtherFatigue("Spell Card", this.actor, null, 100);
+        lowerAllOtherFatigue("Capacité", this.actor, null, 100);
+        this.actor.sheet.render();
+        ui.notifications.info("Les valeurs de Fatigue ont été remises à 0.");
+    }
+
     //#endregion
 
     //#region Stat related
@@ -277,12 +321,18 @@ export default class HCharacterSheet extends ActorSheet {
         let cardData = {
             StatName: statName,
             rollResult: rollResult2,
+            rollResultFormula: `${rollResult.formula}(${rollResult.terms[0].results[0].result})+${Number(testStat)} = ${rollResult2}/${checkOptions.Diff}`,
             Successtype: successtype,
             localizeResult: game.i18n.localize(`hibern.rolls.${localRes}`),
         };
 
         chatData.content = await renderTemplate("systems/hibern/templates/partials/test-card.hbs", cardData);
         return rollResult.toMessage(chatData);
+    }
+
+    async _onRollEsqFromSheet(event) {
+        const type = event.currentTarget.closest(".roll_esq").dataset.rolltype;
+        _rollEsq(type, this.actor);
     }
 
     //#endregion
@@ -323,38 +373,54 @@ export default class HCharacterSheet extends ActorSheet {
             user: game.user.id,
             speaker: ChatMessage.getSpeaker()
         };
-
-        let rollResult = new Roll(`1d20`);
-        let damageRoll = new Roll(item.system.Degats);
-        rollResult = await rollResult.evaluate({async:true});
+            
+        let damageRoll = new Roll(item.system.Degats != "" ? item.system.Degats : "0");
         damageRoll = await damageRoll.evaluate({async:true});
 
         let successtype;
-        let localRes;
-        if (rollResult._total == 20) {
-            successtype = "CritSuccess";
-        } else if (rollResult._total + rollStat + RollBonus >= newDiff) {
-            successtype = "Success";
-        } else if (rollResult._total == 1) {
-            successtype = "CritFailure";
-        } else {
-            successtype = "Failure";
+        let rollResult;
+        let rollResult2;
+        let rollResult2Formula;
+        if (item.system.ReussiteAuto == false)
+        {
+            rollResult = new Roll(`1d20`);
+            rollResult = await rollResult.evaluate({async:true});
+            if (rollResult._total == 20) {
+                successtype = "CritSuccess";
+            } else if (rollResult._total + rollStat + RollBonus >= newDiff) {
+                successtype = "Success";
+            } else if (rollResult._total == 1) {
+                successtype = "CritFailure";
+            } else {
+                successtype = "Failure";
+            }
+            rollResult2 = rollResult._total + rollStat + RollBonus;
+            rollResult2Formula = `${rollResult.formula}(${rollResult.terms[0].results[0].result})+${rollStat}+${RollBonus} = ${rollResult2}/${newDiff}`;
         }
-        localRes = successtype;
+        else {
+            successtype = "Success";
+            rollResult2 = -1;
+            rollResult2Formula = "";
+        }
         
-        let rollResult2 = rollResult._total + rollStat + RollBonus;
         let cardData = {
             isAS: IsSpellAS(newThis.actor, item),
-            Degats: damageRoll._total,
+            Degats: damageRoll.total,
+            DegatsFormula: damageRoll.formula,
             spell: item,
             rollResult: rollResult2,
+            rollResultFormula: rollResult2Formula,
             Successtype: successtype,
-            localizeResult: game.i18n.localize(`hibern.rolls.${localRes}`),
+            localizeResult: game.i18n.localize(`hibern.rolls.${successtype}`),
+            localizeActionType: game.i18n.localize(`hibern.actions.${item.system.ActionType}`),
             Cost: parseInt(item.system.Cout)
         }
 
         chatData.content = await renderTemplate("systems/hibern/templates/partials/spell-card.hbs", cardData);
-        return rollResult.toMessage(chatData);
+        if (item.system.ReussiteAuto == false)
+            return rollResult.toMessage(chatData);
+        else
+            return damageRoll.toMessage(chatData);
     }
     
     //#endregion
@@ -367,8 +433,10 @@ export default class HCharacterSheet extends ActorSheet {
         const ability = newThis.actor.items.get(capaID);
         const IsActive = ability.system.Actif;
         const rollStat = newThis.actor.system[ability.system.stat].value;
+        let newDiff;
         let rollResult;
         let rollResult2;
+        let rollResultFormula2 = "";
         let localRes;
         let successtype;
 
@@ -377,12 +445,12 @@ export default class HCharacterSheet extends ActorSheet {
             speaker: ChatMessage.getSpeaker()
         };
 
-        if (IsActive && ability.system.PostureCustom == false) {
+        if ((IsActive || ability.system.ReussiteAuto) && ability.system.PostureCustom == false) {
             let checkOptions = await this.GetDiffRollOptions(true);
             if (checkOptions.cancelled) {
                 return;
             }
-            const newDiff = getAdjustedDiff(checkOptions.Diff, ability.system.Fatigue);
+            newDiff = getAdjustedDiff(checkOptions.Diff, ability.system.Fatigue);
 
             if (checkOptions.AffectFatigue == true) {
                 const ftg = ability.system.Fatigue += (IsCharInAS(newThis.actor) && newThis.actor.type == "personnage") ? 2 : 1;
@@ -394,20 +462,30 @@ export default class HCharacterSheet extends ActorSheet {
                 lowerAllOtherFatigue(ability.type, newThis.actor, ability._id);
             }
 
-            rollResult = new Roll(`1d20`);
-            rollResult = await rollResult.evaluate({async:true});
-
-            if (rollResult._total == 20) {
-                successtype = "CritSuccess";
-            } else if (rollResult._total + rollStat + ability.system.Spécialisation >= newDiff) {
-                successtype = "Success";
-            } else if (rollResult._total == 1) {
-                successtype = "CritFailure";
-            } else {
-                successtype = "Failure";
+            if (ability.system.ReussiteAuto == false)
+            {
+                rollResult = new Roll(`1d20`);
+                rollResult = await rollResult.evaluate({async:true});
+    
+                if (rollResult._total == 20) {
+                    successtype = "CritSuccess";
+                } else if (rollResult._total + rollStat + ability.system.Spécialisation >= newDiff) {
+                    successtype = "Success";
+                } else if (rollResult._total == 1) {
+                    successtype = "CritFailure";
+                } else {
+                    successtype = "Failure";
+                }
+                rollResult2 = rollResult._total + rollStat + ability.system.Spécialisation;
+                rollResultFormula2 = `${rollResult.formula}(${rollResult.terms[0].results[0].result})+${rollStat}+${ability.system.Spécialisation} = ${rollResult2}/${newDiff}`;
             }
-            localRes = successtype;
-            rollResult2 = rollResult._total + rollStat + ability.system.Spécialisation;
+            else
+            {
+                successtype = "Success";
+                rollResult2 = -1;
+                rollResultFormula2 = "";
+            }
+            
         }
 
         let cardData = {
@@ -415,12 +493,17 @@ export default class HCharacterSheet extends ActorSheet {
             isActive: IsActive,
             isPosture: ability.system.PostureCustom,
             rollResult: rollResult2,
+            rollResultFormula: rollResultFormula2,
             Successtype: successtype,
-            localizeResult: game.i18n.localize(`hibern.rolls.${localRes}`),
+            localizeResult: game.i18n.localize(`hibern.rolls.${successtype}`),
         }
 
         chatData.content = await renderTemplate("systems/hibern/templates/partials/ability-card.hbs", cardData);
-        if (IsActive == true) {
+        /*if (ChatMessage.getSpeaker().isGM()) {
+            chatData.whisper = ChatMessage.getWhisperRecipients("GM")
+        }*/
+
+        if (IsActive == true && ability.system.ReussiteAuto == false) {
             return rollResult.toMessage(chatData);
         } else {
             return ChatMessage.create(chatData);
@@ -465,8 +548,10 @@ export default class HCharacterSheet extends ActorSheet {
         };
         let cardData = {
             Degats: damageRoll._total,
+            DegatsFormula: damageRoll.formula,
             Weapon: weapon,
             rollResult: rollResult2,
+            rollResultFormula: `${rollResult.formula}(${rollResult.terms[0].results[0].result})+${Modifier} = ${rollResult2}/${checkOptions.Diff}`,
             Successtype: successtype,
             localizeResult: game.i18n.localize(`hibern.rolls.${localRes}`)
         }
@@ -527,8 +612,12 @@ export default class HCharacterSheet extends ActorSheet {
         }
         
         let rollResult2;
+        let rollResultFormula2;
         if (context == "Atk")
+        {
             rollResult2 = rollResult._total + stat;
+            rollResultFormula2 = `${rollResult.formula}(${rollResult.terms[0].results[0].result})+${stat} = ${rollResult2}/${checkOptions.Diff}`;
+        }
 
         let chatData = {
             user: game.user.id,
@@ -537,7 +626,9 @@ export default class HCharacterSheet extends ActorSheet {
         let cardData = {
             context: context,
             Degats: damageRoll._total,
+            DegatsFormula: damageRoll.formula,
             rollResult: rollResult2,
+            rollResultFormula: rollResultFormula2,
             Successtype: successtype,
             localizeResult: game.i18n.localize(`hibern.rolls.${localRes}`),
             localizeAtk: localAtk
@@ -633,6 +724,16 @@ export default class HCharacterSheet extends ActorSheet {
     }
 
     //#endregion
+
+    //#region Jauge
+
+    onUpdateJauge(event) {
+        const { itemId, updateItem } = event.currentTarget.dataset
+        const item = this.actor.items.get(itemId)
+        item.update({ [updateItem]: event.target.value })
+    }
+
+    //#endregion
 }
 
 //#region Hooks
@@ -641,6 +742,21 @@ Hooks.on("renderActorSheet", (app, html, data) => {
     let actor = game.actors.get(data.actor._id);
     if (actor.isOwner) {
         let title = html.find(".window-title");
+
+        /*let ResetFatigueButton = $(`<a id="reset-fatigue"><i class="fas fa-cog"></i>${game.i18n.localize("hibern.chars.ResetFatigue")}</a>`);
+        ResetFatigueButton.click(function() {
+            lowerAllOtherFatigue("Spell Card", this.actor, null, 100);
+            lowerAllOtherFatigue("Capacité", this.actor, null, 100);
+            app.render();
+        })
+        title.after(ResetFatigueButton);*/
+
+        /*let MetaButton = $(`<a id="meta-attr"><i class="fas fa-cog"></i>${game.i18n.localize("hibern.chars.Meta")}</a>`);
+        MetaButton.click(function() {
+            // Faire apparaitre une autre fenêtre avec les attributs meta du perso (une augmentation flat de vie, de volonté, de stat ou autre, même des effets de statut et leur description (brûlé, glacé, etc))
+            Meta_HUD.show({inFocus: true, act: actor});
+        });
+        title.after(MetaButton);*/
 
         let EditModeButton = $(`<a id="edit-mode"><i class="fas fa-cog"></i>${game.i18n.localize("hibern.chars.EditMode")}</a>`);
         EditModeButton.click(function() {
@@ -658,12 +774,14 @@ Hooks.on("updateActor", (actor, sysdiff, diffrender, id) => {
             actor.update({
                 system: {
                     PV: {
-                        max: Math.floor((actor.system.CON.value+30))
+                        //max: Math.floor((actor.system.CON.value+30))
+                        max: Math.floor((10+actor.system.CON.value*4))
                     },
                     WillPoints: {
-                        max: actor.system.CON.value
+                        max: actor.system.CON.value+2
                     },
-                    lwready: (actor.system.PV.value <= actor.system.PV.max-CONFIG.hibern.ASSeuil)
+                    //lwready: (actor.system.PV.value <= actor.system.PV.max-CONFIG.hibern.ASSeuil)
+                    lwready: (actor.system.PV.value <= actor.system.CON.value+4)
                 }
             }, {diff: false, render: true});
         }
@@ -682,10 +800,15 @@ Hooks.on("renderTokenHUD", (app, html, data) => {
     html.append(far_right);
 
     _addHudButton(html, token, game.i18n.localize("hibern.chars.Esquive"), 'wing', "far-right",
-    (event)=>{ _rollEsq("Esquive", token) });
+    (event)=>{ _rollEsq("Esquive", token.actor) });
 
     _addHudButton(html, token, game.i18n.localize("hibern.chars.Parade"), 'sword', "far-right",
-    (event)=>{ _rollEsq("Parade", token) });
+    (event)=>{ _rollEsq("Parade", token.actor) });
+
+    const statusEffects = html.find(".status-effects");
+    statusEffects.css({
+        left: "111px"
+    });
 });
 
 //#endregion
@@ -737,17 +860,17 @@ function IsSpellAS(actor, spell) {
 }
 
 function IsCharInAS(actor) {
-    return (actor.system.PV.value <= actor.system.PV.max-CONFIG.hibern.ASSeuil);
+    return (actor.system.PV.value <= actor.system.CON.value+4);
 }
 
 // type, actor, item_id
-function lowerAllOtherFatigue(type, actor, item_id) {
+function lowerAllOtherFatigue(type, actor, item_id, amount=1) {
     let object_array = actor.items.filter(function (item) {return item.type == type});
 
     object_array.filter(obj => obj._id != item_id).forEach(object => {
         if (object.system.Fatigue <= 0)
             return;
-        const ftg = object.system.Fatigue -= 1;
+        const ftg = Math.min(Math.max(object.system.Fatigue - amount, 0), Infinity);
         object.update({
             system: {
                 Fatigue: ftg
@@ -833,8 +956,7 @@ async function GetEsquiveRollOptions(type) {
     });
 }
 
-async function _rollEsq(type, token) {
-    const actor = token._actor;
+async function _rollEsq(type, actor) {
     const checkOptions = await GetEsquiveRollOptions(type);
     if (checkOptions.cancelled)
         return;
@@ -864,6 +986,7 @@ async function _rollEsq(type, token) {
     };
     let cardData = {
         rollResult: rollResult2,
+        rollResultFormula: `${rollResult.formula}(${rollResult.terms[0].results[0].result})+${stat} = ${rollResult2}/${checkOptions.Seuil}-${stat}(${checkOptions.Seuil-stat})`,
         Successtype: successtype,
         localizeResult: game.i18n.localize(`hibern.rolls.${localRes}`),
         type: game.i18n.localize(`hibern.chars.${type}`)

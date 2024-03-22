@@ -42,33 +42,35 @@
         overflow: hidden;
         display: -webkit-box;
         text-overflow: ellipsis;
-        -webkit-line-clamp: 2;
+        //-webkit-line-clamp: 2;
+        -webkit-line-clamp: none;
         -webkit-box-orient: vertical;
     }
 
-    .text-flow:hover {
+    /*.text-flow:hover {
         overflow: hidden;
         display: block;
         text-overflow: none;
         -webkit-line-clamp: none;
         -webkit-box-orient: initial;
-    }
+    }*/
 
     .text-flow1 {
         overflow: hidden;
         display: -webkit-box;
         text-overflow: ellipsis;
-        -webkit-line-clamp: 1;
+        //-webkit-line-clamp: 1;
+        -webkit-line-clamp: none;
         -webkit-box-orient: vertical;
     }
 
-    .text-flow1:hover {
+    /*.text-flow1:hover {
         overflow: hidden;
         display: block;
         text-overflow: none;
         -webkit-line-clamp: none;
         -webkit-box-orient: initial;
-    }
+    }*/
 
     .row {
         display: flex;
@@ -129,6 +131,7 @@
         padding: 4px;
         margin-top: -5px;
         background-color: @main-color;
+        color: @second-color;
         border-bottom-left-radius: @main-radius;
         border-bottom-right-radius: @main-radius;
     }
@@ -167,13 +170,14 @@
         display: block;
         height: 80px;
         width: 80px;
-        margin: 5px;
+        margin: 17px; //5px;
+        //margin-left: 17px;
         text-align: center;
         border: 2px;
-        border-color: @second-color;
+        border-color: @black-color;
         border-style: solid;
         border-radius: 10px;
-        background-color: #00000022;
+        background-color: #00000033;
 
         input {
             background: none;
@@ -192,7 +196,7 @@
             font-weight: bold;
             font-size: large;
             height: 30px; 
-            border-bottom: 2px solid @second-color;
+            border-bottom: 2px solid @black-color;
         }
 
         .value {
@@ -200,11 +204,14 @@
             font-weight: bold;
             height: 60%;
             width: 100%;
+            color: @second-color;
         }
     }
 
     .energies-display {
-        input {
+        margin: 13px;
+
+        /*input {
             background: none;
             border: none;
             //width: 30%;
@@ -218,20 +225,45 @@
 
         input:focus {
             box-shadow: none;
+        }*/
+
+        input {
+            background: none;
+            border: none; 
+            width: 20%;
+            color: inherit;
+            text-shadow: inherit;
+            text-align: right;
+            text-overflow: clip;
+            .bold();
+        }
+
+        input:focus {
+            box-shadow: none;
         }
 
         .life {
             text-shadow: 1px 1px @life-color;
             color: @second-color;
+
+            input {
+                margin-right: -3px;
+                margin-left: -25px;
+            }
         }
 
-        .mana {
-            text-shadow: 1px 1px @mana-color;
+        .will {
+            text-shadow: 1px 1px @will-color;
             color: @second-color;
+
+            input {
+                margin-right: -3px;
+                margin-left: -35px;
+            }
         }
 
         .value-display {
-            //text-shadow: 0px 0px 2px @second-color;
+            text-align: center;
             font-size: medium;
             .bold();
             
@@ -241,23 +273,39 @@
         }
     }
 
-    .will-point {
-        font-size: large;
-
+    .will-points {
         input {
             background: none;
             border: none; 
-            width: 1%;
+            width: 20%;
             color: inherit;
             text-shadow: inherit;
             margin-right: -4px;
-            margin-left: -4px;
+            margin-left: -34px;
+            text-align: right;
+            text-overflow: clip;
             .bold();
         }
 
         input:focus {
             box-shadow: none;
         }
+
+        .will {
+            text-shadow: 1px 1px @will-color;
+        }
+
+        .value-display {
+            font-size: medium;
+            .bold();
+
+            .values {
+                font-size: large;
+            }
+        }
+
+        //text-shadow: 1px 1px @mana-color;
+        //color: @black-color;
     }
 
     .inventory-display {
@@ -268,6 +316,7 @@
             padding: 4px;
             margin-top: -5px;
             background-color: @main-color;
+            color: @second-color;
             border-top-left-radius: @main-radius;
             border-top-right-radius: @main-radius;
         }
@@ -350,7 +399,7 @@
         }
 
         .NotReady {
-            color: @black-color;
+            color: @second-color;
             font-size: medium;
         }
     }
@@ -380,6 +429,7 @@
             background-color: @main-color;
             border-top-left-radius: @main-radius;
             border-top-right-radius: @main-radius;
+            color: @second-color;
         }
 
         .ability-tabs {
@@ -443,7 +493,7 @@
     }
 
     .table-border {
-        max-height: 117.5px;
+        max-height: 220px; //117.5px;
         border: 1px solid @main-color;
         border-top: none;
         border-radius: 0 0 @main-radius @main-radius;
@@ -471,11 +521,44 @@
 
     .tabs {
         .item.active {
-            text-shadow: 0 0 10px @second-color;
+            text-shadow: 0 0 10px @black-color;
         }
 
         a:hover {
-            text-shadow: 0 0 5px @second-color;
+            text-shadow: 0 0 5px @black-color;
+        }
+    }
+
+    .esquive-sheet {
+        text-align: center;
+        color: @second-color;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .custom-gauges {
+        color: @second-color;
+        margin: 13px;
+        padding: 5px;
+        text-align: center;
+
+        input {
+            background: none;
+            border: none; 
+            color: inherit;
+            width: 20%;
+            text-shadow: inherit;
+            text-overflow: clip;
+            .bold();
+        }
+
+        .name {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        input:focus {
+            box-shadow: none;
         }
     }
 }

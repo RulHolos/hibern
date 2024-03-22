@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="row row-initial">
-                    <div class="col-12" style="margin-left: 2px;">
+                    <div class="col-7" style="margin-left: 2px;">
                         <p class="field-name"><b>{{localize "hibern.objects.Stat"}}</b></p>
                         <select name="system.stat" style="width: 100%; height: 47%;">
                             {{#select item.system.stat}}
@@ -22,9 +22,15 @@
                                 <option value="DEX">{{localize "hibern.stats.DEX"}}</option>
                                 <option value="CON">{{localize "hibern.stats.CON"}}</option>
                                 <option value="ERU">{{localize "hibern.stats.ERU"}}</option>
+                                <option value="CHA">{{localize "hibern.stats.CHA"}}</option>
                                 <!--<option value="CHA">{{localize "hibern.stats.CHA"}}</option>-->
                             {{/select}}
                         </select>
+                    </div>
+                    <div class="col-5">
+                        <p class="field-name"><b>{{localize "hibern.objects.ReussiteAuto"}}</b></p>
+                        <input type="checkbox" name="system.ReussiteAuto" value="{{item.system.ReussiteAuto}}" data-dtype="Boolean"
+                            {{checked item.system.ReussiteAuto}} style="margin: 0;" />
                     </div>
                 </div>
                 <p class="field-name"><b>Description</b></p>

@@ -7,14 +7,21 @@
         </div>
         {{else}}
             {{#if (eq isActive true)}}
-            <div class="{{Successtype}} content" style="text-align: center;">
-                <span style="text-decoration: underline;" class="big-number">{{rollResult}}</span></br>
-                <span style="font-size: 14px; text-decoration: none;">({{localizeResult}})</span></br>
-                <span style="color: gray; font-size: small; text-shadow: none;">{{ability.system.Description}}</span>
-            </div>
+                {{#if (eq ability.system.ReussiteAuto true)}}
+                    <div class="{{Successtype}} content" style="text-align: center;">
+                        <span style="text-decoration: underline;" class="big-number">{{localize "hibern.rolls.ReussiteAuto"}}</span><br>
+                        <span style="color: gray; font-size: small; text-shadow: none;">{{breaklines ability.system.Description}}</span>
+                    </div>
+                {{else}}
+                    <div class="{{Successtype}} content" style="text-align: center;">
+                        <span style="text-decoration: underline;" class="big-number" data-tooltip="{{rollResultFormula}}">{{rollResult}}</span></br>
+                        <span style="font-size: 14px; text-decoration: none;">({{localizeResult}})</span></br>
+                        <span style="color: gray; font-size: small; text-shadow: none;">{{breaklines ability.system.Description}}</span>
+                    </div>
+                {{/if}}
             {{else}}
             <div class="content" style="text-align: center;">
-                <span style="color: gray; font-size: small; text-shadow: none;">{{ability.system.Description}}</span>
+                <span style="color: gray; font-size: small; text-shadow: none;">{{breaklines ability.system.Description}}</span>
             </div>
             {{/if}}
         {{/if}}

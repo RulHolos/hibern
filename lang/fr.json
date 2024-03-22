@@ -20,6 +20,8 @@
             "Statistiques": "Statistiques",
             "Statistique": "Statistique",
             "EditMode": "Mode Édition",
+            "Meta": "Attributs Meta",
+            "ResetFatigue": "Reset Fatigue",
             "charname": "Nom du Personnage",
             "species": "Espèce",
             "title": "Titre",
@@ -27,6 +29,8 @@
             "LWCharging": "Etat Vital Normal...",
             "NoSpells": "Aucune Spell Card",
             "abilities": "Capacités",
+            "effects": "Effets",
+            "NoEffects": "Aucun Effet Actif",
             "NoAbilities": "Aucune Capacité",
             "summons": "Invocations",
             "NoSummons": "Aucune Invocation",
@@ -39,13 +43,11 @@
             "postureBase": "Normale",
             "postureDef": "Défensive",
             "postureOff": "Offensive",
-            "postureRea": "Réactive",
             "postureFuy": "Fuyante",
             "postureHib": "Hibernation",
             "tooltipPostureBase": "Aucun Bonus. Aucun Malus.",
-            "tooltipPostureDef": "-3 Dégâts reçus. Ne peut pas attaquer.",
-            "tooltipPostureOff": "+3 Dégâts infligés. -3 Dégâts reçus.",
-            "tooltipPostureRea": "Vous ne pouvez utiliser que des réactions. Vous ne pouvez que changer de posture à votre tour.",
+            "tooltipPostureDef": "-3 Dégâts infligés. -3 Dégâts reçus.",
+            "tooltipPostureOff": "+3 Dégâts infligés. +3 Dégâts reçus.",
             "tooltipPostureFuy": "Vous pouvez fuir le combat. Vitesse de déplacement doublée, ne peut pas attaquer, esquiver, parer.",
             "tooltipPostureHib": "Vous ne pouvez pas faire d'action ou d'action secondaire. Chaque tour dans cette posture donne +2 initiative. Esquive et parade est en Difficile."
         },
@@ -64,6 +66,7 @@
             "objects": "Objets",
             "object": "Objet",
             "ability": "Capacité",
+            "abilities": "Capacités",
             "KoUsage": "Utilisable en KO ?",
             "Spe": "Spécialisation",
             "Reduction": "Réduction de dégâts",
@@ -71,7 +74,14 @@
             "component": "Composante",
             "Fatigue": "Fatigue",
             "Stat": "Statistique",
-            "NotSelling": "Je n'ai aucun objet de ce type."
+            "NotSelling": "Je n'ai aucun objet de ce type.",
+            "NoWeapon": "Aucune arme.",
+            "NoArmor": "Aucune armure.",
+            "NoAccessory": "Aucun accessoire.",
+            "NoObject": "Aucun objet.",
+            "ActionType": "Type d'Action",
+            "ReussiteAuto": "Réussite Auto.",
+            "CreateGauge": "Nouvelle Jauge"
         },
         "rolls": {
             "CritSuccess": "Succès Critique !!!",
@@ -83,7 +93,8 @@
             "easy": "Facile",
             "normal": "Normal",
             "hard": "Difficile",
-            "veryhard": "Très difficile"
+            "veryhard": "Très difficile",
+            "ReussiteAuto": "Réussite Automatique !"
         },
         "Divers": {
             "Accepter": "Accepter",
@@ -91,6 +102,7 @@
             "EnnemiRoll": "Résultat ennemi",
             "Deletion": "Supprimer un objet",
             "ConfirmDeletion": "Voulez-vous vraiment supprimer ",
+            "ConfirmFatigueReset": "Voulez-vous vraiment remettre toutes les valeurs de Fatigue à 0 ?",
             "AffectFatigue": "Changer les valeurs de fatigue ?",
             "CharacterRack": "Grille de Personnage",
             "ShowCharacterRack": "Montrer la Grille de Personnage"
