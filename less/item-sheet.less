@@ -7,7 +7,7 @@
         display: flex;
         flex-direction: column;
         margin: -8px;
-        background-color: @second-color;
+        background-color: var(--hibern-color-second);
 
         textarea, input {
             width: 100%;
@@ -36,7 +36,7 @@
     }
 
     .main-bg {
-        background: @main-color;
+        background: var(--hibern-color-main);
     }
 
     .row::after {
@@ -67,14 +67,14 @@
         font-weight: bold;
         font-size: large;
         padding: 0px;
-        background-color: @main-color;
-        color: @second-color;
-        //border-bottom-left-radius: @main-radius;
-        //border-bottom-right-radius: @main-radius;
+        background-color: var(--hibern-color-main);
+        color: var(--hibern-color-second);
+        //border-bottom-left-radius: var(--hibern-radius-main);
+        //border-bottom-right-radius: var(--hibern-radius-main);
 
         img {
             border: none;
-            border-radius: @main-radius;
+            border-radius: var(--hibern-radius-main);
         }
 
         input {
@@ -105,21 +105,21 @@
     }
 
     .header-AS {
-        background-color: @passif-color;
-        color: @second-color;
+        background-color: var(--hibern-color-passive);
+        color: var(--hibern-color-second);
     }
 
     .MarchandCost-input {
         border: none;
-        background: @main-color-opacity;
+        background: var(--hibern-color-main-opacity);
         width: 30px;
         text-align: center;
         font-weight: bold;
-        color: @second-color;
+        color: var(--hibern-color-second);
     }
 
     .outer-border {
-        background: @second-color;
+        background: var(--hibern-color-second);
         border-left: 1px solid;
         border-radius: 0px 10px 10px 0px;
     }

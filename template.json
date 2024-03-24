@@ -121,9 +121,13 @@
             "ReussiteAuto": false
         },
         "Jauge": {
+            "templates": ["description"],
             "min": 0,
             "value": 0,
-            "max": 10
+            "max": 10,
+            "percentage": 0,
+            "FullColor": "#CCCCCC",
+            "EmptyColor": "#000000"
         }
     }
 }

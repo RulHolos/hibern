@@ -1,0 +1,151 @@
+<div class="card">
+    <button type="button" class="collapser card-tab vertical unbutton interface-only">
+        <i class="fas fa-caret-{{#if sidebarCollapsed}}right{{else}}left{{/if}}"></i>
+    </button>
+
+    <div class="portrait">
+        {{#EditMode actor}}
+            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize hibern.chars.charname}}" class="char-name"/>
+            <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="220" width="220" class="profile-img" />
+        {{else}}
+            <div class="char-name2 text-flow">{{actor.name}}</div>
+            <img src="{{actor.img}}" alt="{{actor.name}}" height="220" width="220" class="profile-img" />
+        {{/EditMode}}
+    </div>
+
+    <!-- Life -->
+    <div class="meter-group">
+        <div class="label">
+            <span>{{localize "hibern.stats.PV"}}</span>
+        </div>
+        <div class="meter life progress" role="meter" aria-valuemin="0"
+            aria-valuenow="{{system.PV.value}}" aria-valuemax="{{system.PV.max}}"
+            style="--bar-percentage: {{PVpercentage}}%">
+            <div class="label">
+                <span class="value">{{system.PV.value}}</span>
+                <span class="separator">&sol;</span>
+                <span class="max">{{system.PV.max}}</span>
+            </div>
+            <input type="number" name="system.PV.value" data-dtype="Number"
+                placeholder="0" value="{{system.PV.value}}" hidden>
+        </div>
+    </div>
+
+    <!-- Will -->
+    <div class="meter-group">
+        <div class="label">
+            <span>{{localize "hibern.stats.WillPoints"}}</span>
+        </div>
+        <div class="meter will progress" role="meter" aria-valuemin="0"
+            aria-valuenow="{{system.WillPoints.value}}" aria-valuemax="{{system.WillPoints.max}}"
+            style="--bar-percentage: {{Willpercentage}}%">
+            <div class="label">
+                <span class="value">{{system.WillPoints.value}}</span>
+                <span class="separator">&sol;</span>
+                <span class="max">{{system.WillPoints.max}}</span>
+            </div>
+            <input type="number" name="system.WillPoints.value" data-dtype="Number"
+                placeholder="0" value="{{system.WillPoints.value}}" hidden>
+        </div>
+    </div>
+
+    <div class="stat-block">
+        <div class="stat-display">
+            <span><a class="stats-test title" data-stat="{{system.FOR.value}}" data-statname="{{localize "hibern.stats.Force"}}">
+                {{localize "hibern.stats.Force"}}</a></span>
+            <input name="system.FOR.value" type="text" value="{{system.FOR.value}}" class="value" data-dtype="Number"/>
+        </div>
+        <div class="stat-display">
+            <span><a class="stats-test title" data-stat="{{system.MAG.value}}" data-statname="{{localize "hibern.stats.Magie"}}">
+                {{localize "hibern.stats.Magie"}}</a></span>
+            <input name="system.MAG.value" type="text" value="{{system.MAG.value}}" class="value" data-dtype="Number"/>
+        </div>
+        <div class="stat-display">
+            <span><a class="stats-test title" data-stat="{{system.DEX.value}}" data-statname="{{localize "hibern.stats.Dextérité"}}">
+                {{localize "hibern.stats.Dextérité"}}</a></span>
+            <input name="system.DEX.value" type="text" value="{{system.DEX.value}}" class="value" data-dtype="Number"/>
+        </div>
+        <div class="stat-display">
+            <span><a class="stats-test title" data-stat="{{system.CON.value}}" data-statname="{{localize "hibern.stats.Consitution"}}"
+                style="font-size: small;">{{localize "hibern.stats.Constitution"}}</a></span>
+            <input name="system.CON.value" type="text" value="{{system.CON.value}}" class="value" data-dtype="Number"/>
+        </div>
+        <div class="stat-display">
+            <span><a class="stats-test title" data-stat="{{system.ERU.value}}" data-statname="{{localize "hibern.stats.Erudition"}}">
+                {{localize "hibern.stats.Erudition"}}</a></span>
+            <input name="system.ERU.value" type="text" value="{{system.ERU.value}}" class="value" data-dtype="Number"/>
+        </div>
+        <div class="stat-display">
+            <span><a class="stats-test title" data-stat="{{system.CHA.value}}" data-statname="{{localize "hibern.stats.Charisme"}}">
+                {{localize "hibern.stats.Charisme"}}</a></span>
+            <input name="system.CHA.value" type="text" value="{{system.CHA.value}}" class="value" data-dtype="Number"/>
+        </div>
+    </div>
+
+    {{#EditMode actor}}
+        <span style="margin-left: 13px; margin-right: 13px; text-align: center;">
+            <a class="item-create" data-itemname="Jauge" data-type="Jauge">{{localize "hibern.objects.CreateGauge"}}
+                <i class="fas fa-plus"></i></a>
+        </span>
+    {{/EditMode}}
+    {{#each custom_gauges as |gauge id|}}
+        <div class="meter-group" data-tooltip="{{breaklines gauge.system.Description}}">
+            {{#EditMode ../actor}}
+                <div class="label">
+                    <input class="name-input" type="text"
+                        name="item.name"
+                        data-dtype="text"
+                        data-item-id="{{gauge._id}}"
+                        data-update-item="name"
+                        value="{{gauge.name}}" style="width: 80%;"/><br>
+                        <a class="item-edit" data-itemid="{{gauge._id}}"><i class="fas fa-edit"></i></a>
+                        <a class="item-delete" data-itemid="{{gauge._id}}"><i class="fas fa-trash"></i></a>
+                </div>
+                <div class="meter gauge-item progress" role="meter" aria-valuemin="0"
+                    aria-valuenow="{{system.PV.value}}" aria-valuemax="{{system.PV.max}}"
+                    style="--bar-percentage: {{gauge.system.percentage}}%;
+                    --hibern-gauge-color-empty: {{gauge.system.EmptyColor}};
+                    --hibern-gauge-color-full: {{gauge.system.FullColor}};">
+                    <div class="label">
+                        <span class="values"><input type="number"
+                            name="item.system.value"
+                            data-dtype="Number"
+                            data-item-id="{{gauge._id}}"
+                            data-update-item="system.value"
+                            value="{{gauge.system.value}}" style="text-align: right;"/>
+                            / <input type="number"
+                            name="item.system.max"
+                            data-dtype="Number"
+                            data-item-id="{{gauge._id}}"
+                            data-update-item="system.max"
+                            value="{{gauge.system.max}}" style="text-align: left;"/></span>
+                    </div>
+                </div>
+            {{else}}
+                <div class="label">
+                    <span>{{gauge.name}}</span>
+                </div>
+                <div class="meter gauge-item progress" role="meter" aria-valuemin="0"
+                    aria-valuenow="{{system.PV.value}}" aria-valuemax="{{system.PV.max}}"
+                    style="--bar-percentage: {{gauge.system.percentage}}%;
+                    --hibern-gauge-color-empty: {{gauge.system.EmptyColor}};
+                    --hibern-gauge-color-full: {{gauge.system.FullColor}};">
+                    <div class="label">
+                        <span class="values"><input type="number"
+                            name="item.system.value"
+                            data-dtype="Number"
+                            data-item-id="{{gauge._id}}"
+                            data-update-item="system.value"
+                            value="{{gauge.system.value}}" style="text-align: right;"/>
+                            / <input type="number"
+                            name="item.system.max"
+                            data-dtype="Number"
+                            data-item-id="{{gauge._id}}"
+                            data-update-item="system.max"
+                            value="{{gauge.system.max}}" style="text-align: left;"/></span>
+                    </div>
+                </div>
+            {{/EditMode}}
+        </div>
+    {{/each}}
+</div>

@@ -127,6 +127,12 @@
             "Editer": "Edit",
             "Supprimer": "Delete",
             "Details": "See Details"
+        },
+        "Tabs": {
+            "SnA": "Spell-Cards and Abilities",
+            "Summons": "Summons",
+            "Details": "Details",
+            "Inventaire": "Inventory"
         }
     }
 }

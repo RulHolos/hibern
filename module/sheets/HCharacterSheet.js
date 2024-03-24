@@ -1,14 +1,15 @@
 import Meta_HUD from "../Meta.js";
+import TabsJustice from "../TabsJustice.js";
 
 export default class HCharacterSheet extends ActorSheet {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             width: 850, //700,
-            height: 960, //750,
-            scrollY: [".scroll-container", ".content"],
+            height: 950, //750,
+            scrollY: [".scroll-container", ".tab-body"],
             resizable: false,
-            classes: ["hibern", "sheet", "personnage"],
-            tabs: [{navSelector: ".tabs", contentSelector: ".content", initial: "abilities"}],
+            classes: ["hibern", "sheet", "personnage2"],
+            tabs: [{navSelector: ".tabs", contentSelector: ".tab-body", initial: "SnA"}],
             dragDrop: [
                 {dragSelector: ".item-list .item", dropSelector: null},
                 {dragSelector: ".invocation-list .invocation", dropSelector: null}
@@ -43,6 +44,13 @@ export default class HCharacterSheet extends ActorSheet {
 
     //#endregion
 
+    static TABS = [
+        { tab: "SnA", label: "hibern.Tabs.SnA", icon: "fas fa-rug" },
+        { tab: "Summons", label: "hibern.Tabs.Summons", icon: "fas fa-address-book" },
+        { tab: "Inventory", label: "hibern.Tabs.Inventaire", icon: "fas fa-list" },
+        { tab: "Details", label: "hibern.Tabs.Details", icon: "fas fa-feather-pointed"}
+    ];
+    
     getData() {
         const data = super.getData();
 
@@ -71,7 +79,40 @@ export default class HCharacterSheet extends ActorSheet {
             invocations: invocationList
         };
 
+        const sidebarCollapsed = game.user.getFlag("hibern", `sheetPrefs.character.collapseSidebar`);
+        sheetData.sidebarCollapsed = sidebarCollapsed;
+
+        sheetData.PVpercentage = (baseData.actor.system.PV.value / baseData.actor.system.PV.max) * 100;
+        sheetData.Willpercentage = (baseData.actor.system.WillPoints.value / baseData.actor.system.WillPoints.max) * 100;
+
         return sheetData;
+    }
+
+    async _renderOuter() {
+        const html = await super._renderOuter();
+        
+        const nav = document.createElement("nav");
+        nav.classList.add("tabs");
+        nav.dataset.group = "primary-tabs";
+        nav.append(...this.constructor.TABS.map(({ tab, label, icon, svg }) => {
+            const item = document.createElement("a");
+            item.classList.add("item", "control");
+            item.dataset.group = "primary-tabs";
+            item.dataset.tab = tab;
+            item.dataset.tooltip = label;
+            item.setAttribute("aria-label", label);
+            if (icon) item.innerHTML = `<i class="${icon}"></i>`;
+            else if (svg) item.innerHTML = `<b>a</b>`;
+            return item;
+        }));
+        html[0].insertAdjacentElement("afterbegin", nav);
+        this._tabs = this.options.tabs.map(t => {
+            t.callback = this._onChangeTab.bind(this);
+            if (this._tabs?.[0]?.active !== t.initial) t.initial = this._tabs?.[0]?.active ?? t.initial;
+            return new TabsJustice(t);
+        })
+
+        return html;
     }
 
     activateListeners(html) {
@@ -89,10 +130,17 @@ export default class HCharacterSheet extends ActorSheet {
             html.find(".open-invocation-sheet").click(this._onOpenInvocationSheet.bind(this));
             html.find(".reset-all-fatigue").click(this._onResetAllFatigue.bind(this));
             html.find(".roll_esq").click(this._onRollEsqFromSheet.bind(this));
+            html.find(".sidebar .collapser").on("click", this._onToggleSidebar.bind(this));
 
             html.find("input[data-update-item]").change(this.onUpdateJauge.bind(this));
-        
+
+            html.find(".life").on("click", event => this._toggleEditValue(event, ".life", true));
+            html.find(".life > input").on("blur", event => this._toggleEditValue(event, ".life", false));
+            html.find(".will").on("click", event => this._toggleEditValue(event, ".will", true));
+            html.find(".will > input").on("blur", event => this._toggleEditValue(event, ".will", false));
+
             new ContextMenu(html, ".InventoryItem", this.itemContextMenu);
+            //new ContextMene(html, ".item-context", this.itemContextMenu);
         }
 
         if (this.actor.type == "personnage") {
@@ -107,6 +155,39 @@ export default class HCharacterSheet extends ActorSheet {
 
         super.activateListeners(html);
     }
+
+    //#region Tabs
+
+    _onChangeTab(event, tabs, active) {
+        super._onChangeTab(event, tabs, active);
+        this.form.className = this.form.className.replace(/tab-\w+/g, "");
+        this.form.classList.add(`tab-${active}`);
+    }
+
+    //#endregion
+
+    //#region Sidebar
+
+    _onToggleSidebar() {
+        console.log("toggle");
+        const collapsed = this._toggleSidebar();
+        game.user.setFlag("hibern", "sheetPrefs.character.collapseSidebar", collapsed);
+    }
+
+    _toggleSidebar(collapsed) {
+        console.log("toggle");
+        this.form.classList.toggle("collapsed", collapsed);
+        collapsed = this.form.classList.contains("collapsed");
+        const collapser = this.form.querySelector(".sidebar .collapser");
+        const icon = collapser.querySelector("i");
+        collapser.dataset.tooltip = "Placeholder";
+        collapser.setAttribute("aria-label", game.i18n.localize(collapser.dataset.tooltip));
+        icon.classList.remove("fa-caret-left", "fa-caret-right");
+        icon.classList.add(`fa-caret-${collapsed ? "right" : "left"}`);
+        return collapsed;
+    }
+
+    //#endregion
 
     //#region Dialogs
 
@@ -286,6 +367,16 @@ export default class HCharacterSheet extends ActorSheet {
     //#endregion
 
     //#region Stat related
+
+    _toggleEditValue(event, selector, edit) {
+        const target = event.currentTarget.closest(selector);
+        const label = target.querySelector(":scope > .label");
+        const input = target.querySelector(":scope > input");
+        label.hidden = edit;
+        input.hidden = !edit;
+        if (edit)
+            input.focus();
+    }
 
     async _onStatTest(event) {
         const statName = event.currentTarget.closest(".stats-test").dataset.statname;
@@ -728,9 +819,22 @@ export default class HCharacterSheet extends ActorSheet {
     //#region Jauge
 
     onUpdateJauge(event) {
-        const { itemId, updateItem } = event.currentTarget.dataset
-        const item = this.actor.items.get(itemId)
-        item.update({ [updateItem]: event.target.value })
+        console.log(event.target.value);
+        const { itemId, updateItem } = event.currentTarget.dataset;
+        const item = this.actor.items.get(itemId);
+        console.log(item.system);
+        const item_result = item.update({
+            [updateItem]: event.target.value,
+        })
+        item_result.then(function(result) {
+            item.update({
+                system: {
+                    percentage: (result.system.value / result.system.max) * 100
+                }
+            });
+        });
+        
+        console.log(item.system);
     }
 
     //#endregion

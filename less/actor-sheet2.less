@@ -1,0 +1,555 @@
+.hibern.sheet.personnage2 {
+    /* ---------------------------- */
+    /* Navigation                   */
+    /* ---------------------------- */
+
+    nav.tabs {
+        --tab-full-width: 44px;
+        --tab-inactive-width: 34px;
+        position: absolute;
+        left: 100%;
+        top: 10rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        z-index: -1;
+
+        .item {
+            text-align: center;
+        }
+
+        > .item {
+            width: var(--tab-full-width);
+            height: 40px;
+            position: relative;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            padding-right: 0.75rem;
+            background: var(--hibern-color-main);
+            color: var(--hibern-color-second);
+            --icon-fill: var(--hibern-color-black);
+            border-radius: 0 8px 8px 0;
+            font-size: var(--font-size-14);
+            margin-left: calc((var(--tab-full-width) - var(--tab-inactive-width)) * -1);
+            transition: all 250ms ease;
+        }
+
+        > .item.active, > .item:hover {
+            text-shadow: none;
+            margin: 0;
+            border-color: var(--hibern-color-black);
+            box-shadow: 0 0 6px var(--hibern-color-black);
+        }
+    }
+
+    /* ---------------------------- */
+    /* Minimized                    */
+    /* ---------------------------- */
+
+    &.minimized {
+        border: unset;
+
+        nav.tabs {
+            display: none;
+        }
+    }
+
+    /* ---------------------------- */
+    /* Collapsed                    */
+    /* ---------------------------- */
+
+    form.collapsed {
+        .main-content {
+            grid-template-columns: 0 1fr;
+            padding-left: 0;
+
+            > .sidebar {
+                margin-left: calc(var(--hibern-sheet-sidebar-width) * -1);
+            }
+        }
+    }
+
+    /* ---------------------------- */
+    /* Content                      */
+    /* ---------------------------- */
+
+    .window-content {
+        padding: 0;
+
+        > form {
+            background-color: #80808045;
+            color: initial; 
+        }
+    }
+
+    .sheet-body {
+        position: relative;
+        height: 100%;
+
+        .main-content {
+            display: grid;
+            grid-template-columns: var(--hibern-sheet-sidebar-width) 1fr;
+            gap: 12px;
+            position: absolute;
+            inset: 0;
+            padding-right: 8px;
+            padding-left: 8px;
+            overflow: hidden auto;
+            transition: all 450ms ease;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: margin-left 450ms ease;
+            background-color: var(--hibern-color-second);
+
+            .card {
+                background: none;
+                box-shadow: none;
+                border-radius: none;
+                position: relative;
+
+                .card-tab {
+                    display: grid;
+                    place-content: center;
+                    background: var(--hibern-color-second);
+                    cursor: pointer;
+
+                    &:hover, &:focus { box-shadow: none; }
+
+                    &.horizontal {
+                        width: 32px;
+                        height: 20px;
+                        border-radius: 0 0 5px 5px;
+                    }
+
+                    &.vertical {
+                        width: 20px;
+                        height: 32px;
+                        border-radius: 0 5px 5px 0;
+                    }
+
+                    > i {
+                        color: var(--hibern-color-main);
+                        font-size: 12px;
+                        margin: 0;
+                    }
+                }
+
+                // Sidebar collapser
+                .card-tab.collapser {
+                    position: absolute;
+                    inset: 2.5rem auto auto 100%;
+                    transform: translateZ(-1px);
+                    width: 12px;
+                    margin-left: 0;
+                }
+
+                // Portrait et nom
+                .portrait {
+                    .char-name {
+                        text-align: center;
+                        font-weight: bold;
+                        border: none;
+                        border-radius: 0px;
+                        font-size: large;
+                        padding: 4px;
+                        min-height: 30px;
+                        width: 100%;
+                        background-color: var(--hibern-color-main);
+                        border-bottom-left-radius: var(--hibern-radius-main);
+                        border-bottom-right-radius: var(--hibern-radius-main);
+                    }
+                
+                    .char-name2 {
+                        text-align: center;
+                        font-weight: bold;
+                        font-size: large;
+                        padding: 4px;
+                        min-height: 30px;
+                        background-color: var(--hibern-color-main);
+                        color: var(--hibern-color-second);
+                        border-bottom-left-radius: var(--hibern-radius-main);
+                        border-bottom-right-radius: var(--hibern-radius-main);
+                    }
+                
+                    .char-name:focus {
+                        box-shadow: none;
+                    }
+                
+                    .profile-img {
+                        object-fit: cover;
+                        object-position: 50% 0;
+                        border: none;
+                        flex: 0;
+                        margin-right: auto;
+                        margin-left: auto;
+                        margin-top: 10px;
+                        text-align: center;
+                        display: block;
+                        border-radius: var(--hibern-radius-main);
+                    }
+                }
+
+                .field {
+                    background-color: var(--hibern-color-main);
+                    color: var(--hibern-color-second);
+                    border: 0;
+                    border-radius: var(--hibern-radius-main);
+                    margin: 10px 5px;
+                    padding: 5px;
+                }
+
+                .meter-group {
+                    display: flex;
+                    flex-direction: column;
+                    gap: .125rem;
+                    padding: 0 .5rem;
+                    margin-top: .5rem;
+
+                    input {
+                        width: 100%;
+                        height: 100%;
+                        text-align: center;
+                        position: relative;
+                        color: var(--hibern-color-second);
+                        border: none;
+                        background: none;
+                    }
+
+                    > .label {
+                        .bold();
+                        text-decoration: underline;
+                        font-size: 13px;
+                        color: var(--hibern-color-main);
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-left: 10px;
+
+                        .name-input {
+                            color: var(--hibern-color-main);
+                            text-align: left;
+                        }
+
+                        > .config-button {
+                            color: var(--hibern-color-main);
+                        }
+                    }
+
+                    .meter {
+                        .bold();
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+
+                        background-color: var(--hibern-color-main);
+                        color: var(--hibern-color-second);
+                        border: 0;
+                        border-radius: var(--hibern-radius-main);
+
+                        &.progress, .progress {
+                            --bar-percentage: 0%;
+                            --border-width: 3px;
+                            overflow: hidden;
+
+                            &::before {
+                                content: "";
+                                position: absolute;
+                                height: 100%;
+                                width: var(--bar-percentage);
+                                clip-path: polygon(0 0, calc(100% + 6px) 0, calc(100% + 6px) 100%, 0 100%);
+                            }
+                        }
+
+                        .label {
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            gap: .25rem;
+                            position: relative;
+                            padding-inline-start: .5rem;
+                            padding-inline-end: .75rem;
+
+                            &[hidden] {
+                                display: none;
+                            }
+
+                            .values {
+                                display: flex;
+                                align-items: center;
+                                color: var(--hibern-color-second);
+                                
+                                > input:focus, > input:hover {
+                                    border: none;
+                                    background: none;
+                                    box-shadow: none;
+                                }
+                            }
+                        }
+
+                        &.life {
+                            height: 32px;
+                            font-size: 16px;
+
+                            &.progress::before {
+                                background: linear-gradient(to right, var(--hibern-color-life-empty), var(--hibern-color-life-full) 100%);
+                                border-radius: 4px 0 0 4px;
+                            }
+                        }
+
+                        &.will {
+                            height: 25px;
+                            font-size: 14px;
+
+                            &.progress::before {
+                                background: linear-gradient(to right, var(--hibern-color-will-empty), var(--hibern-color-will-full) 100%);
+                                border-radius: 4px 0 0 4px;
+                            }
+                        }
+
+                        &.gauge-item {
+                            --hibern-gauge-color-empty: var(--hibern-color-black);
+                            --hibern-gauge-color-full: var(--hibern-color-fifth);
+                            height: 25px;
+                            font-size: 14px;
+
+                            &.progress::before {
+                                background: linear-gradient(to right, var(--hibern-gauge-color-empty), var(--hibern-gauge-color-full) 100%);
+                                border-radius: 4px 0 0 4px;
+                            }
+                        }
+                    }
+                }
+
+                .stat-block {
+                    display: grid;
+                    grid-template-columns: auto auto;
+                    gap: 0.5rem;
+                    .field();
+
+                    .stat-display {
+                        display: block;
+                        margin: 5px auto;
+                        height: 80px;
+                        width: 80px;
+                        text-align: center;
+                        border: 2px;
+                        border-color: var(--hibern-color-black);
+                        border-style: solid;
+                        border-radius: var(--hibern-radius-main);
+                        background-color: #00000033;
+
+                        > input, > input:hover, > input:focus {
+                            background: none;
+                            border: none;
+                            box-shadow: none;
+                        }
+
+                        .title {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-weight: bold;
+                            font-size: large;
+                            height: 30px; 
+                            border-bottom: 2px solid var(--hibern-color-black);
+                        }
+
+                        .value {
+                            font-size: 35px;
+                            font-weight: bold;
+                            height: 60%;
+                            width: 100%;
+                            color: var(--hibern-color-second);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// Spell-Cards and Abilities
+        .SnA {
+            margin: 15px 5px;
+
+            .table-display {
+                margin-bottom: 15px;
+                color: var(--hibern-color-black);
+                border-radius: var(--hibern-radius-main);
+                box-shadow: 0 0 6px var(--hibern-color-black);
+        
+                .actif {
+                    color: var(--hibern-color-active);
+                }
+        
+                .passif {
+                    color: var(--hibern-color-passive);
+                }
+        
+                .posture {
+                    color: var(--hibern-color-posture);
+                }
+
+                .item-name {
+                    width: 30%;
+                }
+
+                .item-description {
+                    width: 65%;
+                    font-size: 12px;
+                }
+
+                .item-specialisation {
+                    width: 5%;
+                    text-align: center;
+                }
+
+                .item-controls {
+                    width: 5%;
+
+                    .item-control {
+                        color: var(--hibern-color-main);
+                    }
+                }
+        
+                .name {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: large;
+                    padding: 4px;
+                    background-color: var(--hibern-color-main);
+                    border-top-left-radius: var(--hibern-radius-main);
+                    border-top-right-radius: var(--hibern-radius-main);
+                    color: var(--hibern-color-second);
+                }
+        
+                .ability-tabs {
+                    display: flex;
+                    margin-bottom: 0;
+                    justify-content: space-around;
+                }
+        
+                .ASName {
+                    color: var(--hibern-color-passive);
+                }
+        
+                .scroll-container {
+                    overflow-y: auto;
+                }
+        
+                .scroll-content {
+                    width: 100%;
+                    overflow: visible;
+                    box-sizing: border-box;
+                }
+        
+                table {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    background: none;
+        
+                    td {
+                        border-bottom: hidden;
+                        border-top: hidden;
+                        padding: 4px;
+                    }
+        
+                    tr:nth-child(even) { background-color: var(--hibern-color-second); }
+                    tr:nth-child(odd) { background-color: var(--hibern-color-fourth); }
+                }
+        
+                .spell-table-content {
+                    .spell-name {
+                        .bold();
+                    }
+        
+                    .summon-img {
+                        border: none;
+                        border-radius: 50%;
+                        object-fit: cover;
+                        object-position: 50% 0;
+                    }
+                }
+
+                .table-border {
+                    max-height: 350px;
+                    border: 1px solid var(--hibern-color-main);
+                    border-top: none;
+                    border-radius: 0 0 var(--hibern-radius-main) var(--hibern-radius-main);
+                }
+            
+                .baseatktable {
+                    margin: 0px;
+                    border: none;
+                    border-left: 1px solid var(--hibern-color-main);
+                    border-right: 1px solid var(--hibern-color-main);
+                }
+            }
+        }
+
+        .Inventory {
+            margin: 15px 5px;
+
+            .inventory-display {
+                margin-bottom: 15px;
+                color: var(--hibern-color-black);
+                border-radius: var(--hibern-radius-main);
+                box-shadow: 0 0 6px var(--hibern-color-black);
+
+                h2 {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: large;
+                    padding: 4px;
+                    background-color: var(--hibern-color-main);
+                    color: var(--hibern-color-second);
+                    border-top-left-radius: var(--hibern-radius-main);
+                    border-top-right-radius: var(--hibern-radius-main);
+                }
+        
+                .inventory-item {
+                    border: 1px dotted var(--hibern-color-third);
+                    border-radius: var(--hibern-radius-second);
+                    //background-color: whitesmoke;
+                    padding: 2px;
+                }
+        
+                .content {
+                    background-color: var(--hibern-color-second);
+                    border: 1px solid var(--hibern-color-third);
+                    border-bottom-left-radius: var(--hibern-radius-main);
+                    border-bottom-right-radius: var(--hibern-radius-main);
+                    max-height: 120px;
+                }
+        
+                .mons-input {
+                    border: none;
+                    width: 50px;
+                    font-weight: bold;
+                }
+        
+                table {
+                    background: none;
+        
+                    td {
+                        border-bottom: hidden;
+                        border-top: hidden;
+                        padding: 4px;
+                        text-align: center;
+                    }
+        
+                    tr:nth-child(odd) {
+                        background-color: var(--hibern-color-second);
+                    }
+        
+                    tr:nth-child(even) {
+                        background-color: var(--hibern-color-fourth);
+                    }
+                }
+            }
+        }
+    }
+}

@@ -20,7 +20,7 @@
     .content {
         //overflow-y: scroll;
         padding: 5px;
-        border-left: 1px solid @third-color;
+        border-left: 1px solid var(--hibern-color-third);
     }
 
     .window-content {
@@ -83,23 +83,23 @@
         text-align: center;
         font-weight: bold;
         border: none;
-        border: 1px solid @black-color;
-        border-top: 1px solid @black-color;
+        border: 1px solid var(--hibern-color-black);
+        border-top: 1px solid var(--hibern-color-black);
         font-size: large;
         padding: 4px;
         margin: 0;
         width: 100%;
-        color: @second-color;
-        background-color: @main-color;
-        border-bottom-left-radius: @main-radius;
-        border-bottom-right-radius: @main-radius;
+        color: var(--hibern-color-second);
+        background-color: var(--hibern-color-main);
+        border-bottom-left-radius: var(--hibern-radius-main);
+        border-bottom-right-radius: var(--hibern-radius-main);
     }
     .navigation-item.active, .navigation-item:hover {
         text-shadow: none;
-        background-color: @second-color;
-        color: @main-color;
-        border: 1px solid @main-color;
-        border-top: 1px solid @black-color;
+        background-color: var(--hibern-color-second);
+        color: var(--hibern-color-main);
+        border: 1px solid var(--hibern-color-main);
+        border-top: 1px solid var(--hibern-color-black);
         margin: 0px 0px -10px 0px;
         display: flex;
         justify-content: center;
@@ -114,8 +114,8 @@
         font-size: 30px;
         border: none;
         margin: 0;
-        color: @second-color;
-        background-color: @main-color;
+        color: var(--hibern-color-second);
+        background-color: var(--hibern-color-main);
 
         span {
             font-size: 14px;
@@ -123,7 +123,7 @@
     }
 
     .marchand-img {
-        border: 1px solid @main-color !important;
+        border: 1px solid var(--hibern-color-main) !important;
         object-fit: cover;
         object-position: 50% 0;
         border: none;
@@ -131,16 +131,16 @@
         margin: 20px auto -1px auto;
         text-align: center;
         display: block;
-        border-top-left-radius: @third-radius;
-        border-top-right-radius: @third-radius;
+        border-top-left-radius: var(--hibern-radius-third);
+        border-top-right-radius: var(--hibern-radius-third);
     }
 
     .marchand-fonction {
-        border: 1px solid @main-color;
-        border-bottom-left-radius: @main-radius;
-        border-bottom-right-radius: @main-radius;
-        background: @main-color;
-        color: @second-color;
+        border: 1px solid var(--hibern-color-main);
+        border-bottom-left-radius: var(--hibern-radius-main);
+        border-bottom-right-radius: var(--hibern-radius-main);
+        background: var(--hibern-color-main);
+        color: var(--hibern-color-second);
         text-align: center;
         margin: 0;
         text-decoration: underline;
@@ -164,19 +164,19 @@
         .grid-item {
             margin: 5px;
             padding: 0px 5px 5px 0px;
-            background: @second-color;
-            border-radius: @main-radius;
-            border: 1px solid @main-color;
+            background: var(--hibern-color-second);
+            border-radius: var(--hibern-radius-main);
+            border: 1px solid var(--hibern-color-main);
 
             .header {
                 display: flex;
             }
 
             .item-img {
-                border-top-left-radius: @main-radius;
-                border-bottom-right-radius: @main-radius;
+                border-top-left-radius: var(--hibern-radius-main);
+                border-bottom-right-radius: var(--hibern-radius-main);
                 border: none;
-                background: @main-color;
+                background: var(--hibern-color-main);
             }
 
             .item-name {
@@ -192,7 +192,7 @@
             }
 
             .item-description {
-                border-top: 1px solid @main-color;
+                border-top: 1px solid var(--hibern-color-main);
                 padding: 3px;
                 text-align: justify;
                 font-size: 12px;
@@ -201,7 +201,7 @@
             }
 
             .item-cost {
-                border-top: 1px dashed @main-color;
+                border-top: 1px dashed var(--hibern-color-main);
                 text-align: center;
                 padding: 5px 0px 0px 0px;
             }
@@ -211,28 +211,28 @@
     table {
         width: 100%;
         border: none;
-        border-radius: @main-radius;
+        border-radius: var(--hibern-radius-main);
         background: none;
 
         .item-img {
-            border-radius: @main-radius;
+            border-radius: var(--hibern-radius-main);
             border: none;
             margin-top: 3px;
         }
 
         tr {
-            color: @black-color;
+            color: var(--hibern-color-black);
             //border: 0;
             //display: block;
-            //border-radius: @main-radius;
+            //border-radius: var(--hibern-radius-main);
         }
 
         tr:nth-child(odd) {
-            background-color: @second-color;
+            background-color: var(--hibern-color-second);
         }
 
         tr:nth-child(even) {
-            background-color: @fourth-color;
+            background-color: var(--hibern-color-fourth);
         }
 
         td {

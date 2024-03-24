@@ -18,7 +18,10 @@ async function preloadHandlebarsTemplates() {
         "systems/hibern/templates/partials/machand-armures-block.hbs",
         "systems/hibern/templates/partials/machand-accessoires-block.hbs",
         "systems/hibern/templates/partials/machand-objets-block.hbs",
-        "systems/hibern/templates/partials/machand-spells-block.hbs"
+        "systems/hibern/templates/partials/machand-spells-block.hbs",
+        "systems/hibern/templates/partialsv2/sidebar.hbs",
+        "systems/hibern/templates/partialsv2/SnA.hbs",
+        "systems/hibern/templates/partialsv2/Inventory.hbs",
     ];
     return loadTemplates(templatePaths);
 }

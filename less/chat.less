@@ -1,9 +1,9 @@
 .dice-roll {
     .roll {
         @keyframes LWChatanimation {
-            0% {background-color: @main-color; color: @second-color;}
-            50% {background-color: @LW-color; color: @black-color;}
-            100% {background-color: @main-color; color: @second-color;}
+            0% {background-color: var(--hibern-color-main); color: var(--hibern-color-second);}
+            50% {background-color: var(---hibern-color-LW); color: var(--hibern-color-black);}
+            100% {background-color: var(--hibern-color-main); color: var(--hibern-color-second);}
         }
         
         .name {
@@ -12,23 +12,24 @@
             font-weight: bold;
             font-size: large;
             padding: 4px;
-            background-color: @main-color;
-            color: @second-color;
+            background-color: var(--hibern-color-main);
+            color: var(--hibern-color-second);
             animation: none;
             animation-duration: 10s;
             animation-iteration-count: infinite;
-            border-top-left-radius: @main-radius;
-            border-top-right-radius: @main-radius;
+            border-top-left-radius: var(--hibern-radius-main);
+            border-top-right-radius: var(--hibern-radius-main);
         }
 
         .ASName {
-            background-color: @passif-color;
-            //color: @second-color;
+            background-color: var(--hibern-color-passive);
+            //color: var(--hibern-color-second);
             span {
                 background: -webkit-linear-gradient(left, red, yellow, green, cyan, violet); /* For Safari 5.1 to 6.0 */
                 background: -o-linear-gradient(right, red, yellow, green, cyan, violet); /* For Opera 11.1 to 12.0 */
                 background: -moz-linear-gradient(right, red, yellow, green, cyan, violet); /* For Firefox 3.6 to 15 */
                 background: linear-gradient(to right, red , yellow, green, cyan, violet); /* Standard syntax (must be last) */
+                background-clip: text;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
@@ -36,11 +37,11 @@
 
         .content {
             padding: 5px;
-            background-color: @second-color;
-            border: 1px solid @third-color;
+            background-color: var(--hibern-color-second);
+            border: 1px solid var(--hibern-color-third);
             border-top: 0px;
-            border-bottom-left-radius: @main-radius;
-            border-bottom-right-radius: @main-radius;
+            border-bottom-left-radius: var(--hibern-radius-main);
+            border-bottom-right-radius: var(--hibern-radius-main);
         }
     }
 
@@ -50,25 +51,25 @@
 
     .CritSuccess {
         color: rgb(0, 255, 0);
-        text-shadow: 1px 1px @black-color;
+        text-shadow: 1px 1px var(--hibern-color-black);
         .big-number();
     }
 
     .Success {
         color: darkgreen;
-        text-shadow: 1px 1px @black-color;
+        text-shadow: 1px 1px var(--hibern-color-black);
         .big-number();
     }
 
     .CritFailure {
         color: red;
-        text-shadow: 1px 1px @black-color;
+        text-shadow: 1px 1px var(--hibern-color-black);
         .big-number();
     }
 
     .Failure {
         color:rgb(136, 137, 136);
-        text-shadow: 1px 1px @black-color;
+        text-shadow: 1px 1px var(--hibern-color-black);
         .big-number();
     }
 }

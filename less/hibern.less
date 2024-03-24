@@ -1,74 +1,85 @@
 //@import "./HUD.less";
 @import "./chat.less";
+@import "./actor-sheet2.less";
 @import "./actor-sheet.less";
 @import "./item-sheet.less";
 @import "./marchand-sheet.less";
 @import "./HUD.less";
 @import "./meta.less";
 
-@third-radius: 20px;
-@main-radius: 10px;
-@second-radius: 5px;
+/* ------------------------- */
+/* Sheet Styles              */
+/* ------------------------- */
 
-@main-color: brown;
-@main-color-opacity: rgba(165, 42, 42, 0.7);
-@main-alternative-color: rgba(165, 42, 42, 0.8);
-@second-color: white;
-@second-color-opacity: rgba(255, 255, 255, 0.7);
-@third-color: #555555;
-@fourth-color: rgb(219, 219, 219);
-@fifth-color: rgb(188, 188, 188);
-@black-color : black;
+:root {
+    --hibern-radius-main: 10px;
+    --hibern-radius-second: 5px;
+    --hibern-radius-third: 20px;
 
-@life-color: rgb(0, 197, 0);
-@will-color: rgb(205, 0, 205);
-@mana-color: rgb(127, 0, 127);
-@LW-color: rgb(0, 234, 230);
-@actif-color: rgb(255, 153, 0);
-@passif-color: rgb(53, 53, 132);
-@posture-color: rgb(0, 100, 0);
+    --hibern-color-main: brown;
+    --hibern-color-main-opacity: rgba(165, 42, 42, 0.7);
+    --hibern-color-main-alternative: rgba(165, 42, 42, 0.8);
+    --hibern-color-second: white;
+    --hibern-color-second-opacity: rgba(255, 255, 255, 0.7);
+    --hibern-color-third: rgb(85, 85, 85);
+    --hibern-color-fourth: rgb(219, 219, 219);
+    --hibern-color-fifth: rgb(204, 204, 204);
+    --hibern-color-black: black;
+
+    --hibern-color-life-empty: rgb(0, 107, 0);
+    --hibern-color-life-full: rgb(0, 197, 0);
+    --hibern-color-will-empty: rgb(111, 0, 111);
+    --hibern-color-will-full: rgb(205, 0, 205);
+    --hibern-color-LW: rgb(0, 234, 230);
+    --hibern-color-active: rgb(255, 153, 0);
+    --hibern-color-passive: rgb(53, 53, 132);
+    --hibern-color-posture: rgb(0, 100, 0);
+
+    --hibern-border-main: 1px solid var(--hibern-color-main);
+    --hibern-sheet-sidebar-width: 240px;
+}
 
 .bold {
     font-weight: bold;
 }
 
 .main-background {
-    background-color: @main-color;
+    background-color: var(--hibern-color-main);
 
     input {
-        background-color: @second-color;
+        background-color: var(--hibern-color-second);
     }
 }
 
 .alternative-background {
-    background-color: @main-alternative-color;
+    background-color: var(--hibern-color-main-alternative);
 
     input {
-        background-color: @second-color;
+        background-color: var(--hibern-color-second);
     }
 }
 
 .white-on-red() {
-    background-color: @main-alternative-color;
-    color: @second-color;
+    background-color: var(--hibern-color-main-alternative);
+    color: var(--hibern-color-second);
 }
 
 .main-corner() {
-    border-radius: @main-radius;
+    border-radius: var(--hibern-radius-main);
 }
 
 .second-corner() {
-    border-radius: @second-radius;
+    border-radius: var(--hibern-radius-second);
 }
 
 .third-corner() {
-    border-radius: @third-radius;
+    border-radius: var(--hibern-radius-third);
 }
 
 .red-carpet() {
     &::before {
         content: "";
-        background: @main-color;
+        background: var(--hibern-color-main);
         position: absolute;
         top: 0;
         left: 10%;
@@ -80,10 +91,10 @@
 }
 
 .canvas-shadow() {
-    filter: drop-shadow(0 0 10px @black-color);
+    filter: drop-shadow(0 0 10px var(--hibern-color-black));
 }
 
-.clipCorners(@bevel: @main-radius) {
+.clipCorners(@bevel: var(--hibern-radius-main)) {
     clip-path: polygon(@bevel 0px,
     calc(100% - @bevel) 0px,
     100% @bevel,
@@ -96,10 +107,10 @@
     0px @bevel);
 }
 
-.clippedBorder(@color: @main-color,
+.clippedBorder(@color: var(--hibern-color-main),
   @borderThickness: 4px,
-  @background: @second-color,
-  @clipSize: @main-radius,
+  @background: var(--hibern-color-second),
+  @clipSize: var(--hibern-radius-main),
   @contextMenu: false) {
   position: relative;
   border: none;
@@ -152,4 +163,78 @@
     right: 0;
     bottom: 0;
   }
+}
+
+
+/* ------------------------- */
+/* Flexbox                   */
+/* ------------------------- */
+
+.flexrow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    > * {
+        flex: 1;
+    }
+
+    .flex1 { flex: 1; }
+    .flex2 { flex: 2; }
+    .flex3 { flex: 3; }
+    .flex4 { flex: 4; }
+}
+
+.flexcol {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+    > * {
+        flex: 1;
+    }
+
+    .flex1 { flex: 1; }
+    .flex2 { flex: 2; }
+    .flex3 { flex: 3; }
+    .flex4 { flex: 4; }
+}
+
+/* ------------------------- */
+/* Common                    */
+/* ------------------------- */
+
+.card {
+    border-radius: var(--hibern-radius-main);
+    background: var(--hibern-color-main);
+    
+    .header {
+        color: var(--hibern-color-second);
+        border-radius: 5px 5px 0 0;
+
+        &.disabled {
+            background: var(--hibern-color-main-alternative);
+        }
+
+        h3 {
+            border: none;
+            margin: 0;
+            padding: .5rem;
+            .bold();
+            line-height: 1;
+        }
+    }
+}
+
+.unlist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+h1, h2, h3 {
+    margin: 0;
+    border: none;
+    .bold();
 }

@@ -1,9 +1,9 @@
 #navigation {
     #nav-toggle {
         border: none;
-        color: @second-color;
-        background: @main-color-opacity;
-        border-radius: @main-radius;
+        color: var(--hibern-color-second);
+        background: var(--hibern-color-main-opacity);
+        border-radius: var(--hibern-radius-main);
     }
 
     #scene-list {
@@ -14,17 +14,17 @@
 
             .scene-name {
                 padding: 10px 8px;
-                background: @second-color-opacity;
-                border-radius: @main-radius;
-                color: @main-color;
+                background: var(--hibern-color-second-opacity);
+                border-radius: var(--hibern-radius-main);
+                color: var(--hibern-color-main);
             }
             &.gm .scene-name {
-                border-radius: @second-radius;
+                border-radius: var(--hibern-radius-second);
             }
             &.view .scene-name {
-                background: @main-color-opacity;
-                color: @second-color;
-                border-radius: @third-radius;
+                background: var(--hibern-color-main-opacity);
+                color: var(--hibern-color-second);
+                border-radius: var(--hibern-radius-third);
             }
             &.gm, &.view, &.context {
                 background: none;
@@ -43,16 +43,16 @@
     border: none;
     width: max-content;
     min-width: 100%;
-    border-radius: @main-radius;
-    filter: drop-shadow(0 0 10px @black-color);
-    color: @second-color;
-    background: @main-color-opacity;
+    border-radius: var(--hibern-radius-main);
+    filter: drop-shadow(0 0 10px var(--hibern-color-black));
+    color: var(--hibern-color-second);
+    background: var(--hibern-color-main-opacity);
 
     li.context-item:hover {
-        background-color: @second-color;
-        color: @main-color;
+        background-color: var(--hibern-color-second);
+        color: var(--hibern-color-main);
         text-shadow: none;
-        border-radius: @main-radius;
+        border-radius: var(--hibern-radius-main);
     }
 }
 
@@ -65,25 +65,25 @@
         }
 
         .scene-control {
-            background-color: @main-color;
-            color: @second-color;
-            border-radius: @main-radius;
-            box-shadow: 0 0 10px @main-color;
-            border: 1px solid @second-color;
+            background-color: var(--hibern-color-main);
+            color: var(--hibern-color-second);
+            border-radius: var(--hibern-radius-main);
+            box-shadow: 0 0 10px var(--hibern-color-main);
+            border: 1px solid var(--hibern-color-second);
         }
 
         .active {
-            background-color: @second-color !important;
-            color: @main-color !important;
-            border: 1px solid @main-color !important;
-            box-shadow: 0 0 10px @second-color !important;
+            background-color: var(--hibern-color-second) !important;
+            color: var(--hibern-color-main) !important;
+            border: 1px solid var(--hibern-color-main) !important;
+            box-shadow: 0 0 10px var(--hibern-color-second) !important;
         }
 
         .scene-control:hover {
-            background-color: @second-color;
-            color: @main-color;
-            border: 1px solid @main-color;
-            box-shadow: 0 0 10px @second-color;
+            background-color: var(--hibern-color-second);
+            color: var(--hibern-color-main);
+            border: 1px solid var(--hibern-color-main);
+            box-shadow: 0 0 10px var(--hibern-color-second);
         }
     }
 
@@ -93,96 +93,96 @@
         }
 
         .control-tool {
-            background-color: @fifth-color;
-            color: @main-color;
-            border-radius: @main-radius;
-            box-shadow: 0 0 10px @fifth-color;
-            border: 1px solid @main-color;
+            background-color: var(--hibern-color-fifth);
+            color: var(--hibern-color-main);
+            border-radius: var(--hibern-radius-main);
+            box-shadow: 0 0 10px var(--hibern-color-fifth);
+            border: 1px solid var(--hibern-color-main);
         }
 
         .active {
-            background-color: @second-color !important;
-            color: @main-color !important;
-            box-shadow: 0 0 10px @second-color !important;
+            background-color: var(--hibern-color-second) !important;
+            color: var(--hibern-color-main) !important;
+            box-shadow: 0 0 10px var(--hibern-color-second) !important;
         }
 
         .control-tool:hover {
-            background-color: @second-color;
-            color: @main-color;
-            box-shadow: 0 0 10px @fifth-color;
-            border: 1px solid @main-color;
+            background-color: var(--hibern-color-second);
+            color: var(--hibern-color-main);
+            box-shadow: 0 0 10px var(--hibern-color-fifth);
+            border: 1px solid var(--hibern-color-main);
         }
 
         .toggle {
-            border: 1px solid @main-color !important;
-            background-color: @passif-color !important;
+            border: 1px solid var(--hibern-color-main) !important;
+            background-color: var(--hibern-color-passive) !important;
         }
 
         .toggle.active {
-            border: 1px solid @second-color !important;
-            background-color: @actif-color !important;
+            border: 1px solid var(--hibern-color-second) !important;
+            background-color: var(--hibern-color-active) !important;
         }
     }
 }
 
 #players {
-    border: 1px solid @second-color;
-    border-radius: @main-radius;
+    border: 1px solid var(--hibern-color-second);
+    border-radius: var(--hibern-radius-main);
     background-image: none;
-    background-color: @main-color-opacity;
-    color: @fifth-color;
+    background-color: var(--hibern-color-main-opacity);
+    color: var(--hibern-color-fifth);
     font-weight: bold;
 
     h3 {
-        border-bottom: 2px groove @black-color;
+        border-bottom: 2px groove var(--hibern-color-black);
         font-weight: bold !important;
-        color: @second-color;
+        color: var(--hibern-color-second);
     }
 
     ol .player-name.self {
-        color: @second-color;
+        color: var(--hibern-color-second);
     }
 }
 
 #sidebar {
-    background: @second-color-opacity;
-    color: @main-color;
-    border-radius: @main-radius;
+    background: var(--hibern-color-second-opacity);
+    color: var(--hibern-color-main);
+    border-radius: var(--hibern-radius-main);
 
     button {
-        color: @second-color;
-        background: @main-color;
-        border-radius: @main-radius;
-        box-shadow: 0 0 5px inset @second-color;
+        color: var(--hibern-color-second);
+        background: var(--hibern-color-main);
+        border-radius: var(--hibern-radius-main);
+        box-shadow: 0 0 5px inset var(--hibern-color-second);
     }
 
     input[type="text"], textarea {
-        border-radius: @main-radius;
-        background: @fourth-color;
-        color: @black-color;
+        border-radius: var(--hibern-radius-main);
+        background: var(--hibern-color-fourth);
+        color: var(--hibern-color-black);
     }
     input[type="text"] {
-        color: @main-color;
+        color: var(--hibern-color-main);
     }
 
     #sidebar-tabs {
-        box-shadow: 0 0 10px @main-color;
-        border-bottom: 1px solid @main-color;
+        box-shadow: 0 0 10px var(--hibern-color-main);
+        border-bottom: 1px solid var(--hibern-color-main);
 
         .item {
-            color: @second-color;
-            background-color: @main-color;
+            color: var(--hibern-color-second);
+            background-color: var(--hibern-color-main);
             border-radius: 10px 10px 0 0
         }
 
         .item.active {
-            box-shadow: 0 0 6px inset @second-color;
-            border: 1px solid @main-color;
+            box-shadow: 0 0 6px inset var(--hibern-color-second);
+            border: 1px solid var(--hibern-color-main);
             border-bottom: none;
         }
 
         .collapse {
-            color: @main-color;
+            color: var(--hibern-color-main);
         }
     }
 
@@ -193,16 +193,16 @@
     #chat-log {
         .chat-message {
             margin: 5px 3px 5px 3px;
-            background: @second-color;
-            border: 2px solid @black-color !important;
-            border-radius: @main-radius;
-            box-shadow: 0 0 5px inset @main-color;
+            background: var(--hibern-color-second);
+            border: 2px solid var(--hibern-color-black) !important;
+            border-radius: var(--hibern-radius-main);
+            box-shadow: 0 0 5px inset var(--hibern-color-main);
         }
     }
 
     .combat-sidebar {
         a {
-            color: @main-color;
+            color: var(--hibern-color-main);
         }
 
         h3 {
@@ -211,46 +211,46 @@
         }
 
         .encounter {
-            color: @main-color;
+            color: var(--hibern-color-main);
         }
 
         #combat-tracker {
             h4 {
-                color: @main-color;
+                color: var(--hibern-color-main);
                 font-weight: bold;
-                text-shadow: 2px 2px 2px @second-color;
+                text-shadow: 2px 2px 2px var(--hibern-color-second);
             }
 
             a {
-                color: @main-color;
-                text-shadow: 2px 2px 2px @second-color;
+                color: var(--hibern-color-main);
+                text-shadow: 2px 2px 2px var(--hibern-color-second);
                 margin-right: 10px;
             }
 
             .initiative {
-                color: @main-color;
-                text-shadow: 2px 2px 2px @second-color;
+                color: var(--hibern-color-main);
+                text-shadow: 2px 2px 2px var(--hibern-color-second);
             }
         }
 
         .custom-combat-tracker {
-            color: @main-color;
-            text-shadow: 2px 2px 2px @second-color;
+            color: var(--hibern-color-main);
+            text-shadow: 2px 2px 2px var(--hibern-color-second);
 
             #change-posture {
-                color: @main-color;
-                background: @second-color-opacity;
+                color: var(--hibern-color-main);
+                background: var(--hibern-color-second-opacity);
             }
 
             .actionList {
-                border: 1px solid @main-color;
-                border-radius: @main-radius;
-                background: @second-color-opacity;
+                border: 1px solid var(--hibern-color-main);
+                border-radius: var(--hibern-radius-main);
+                background: var(--hibern-color-second-opacity);
                 padding: 0px 5px 0px 5px;
                 text-shadow: none;
 
                 .used a {
-                    color: @third-color;
+                    color: var(--hibern-color-third);
                 }
             }
         }
@@ -258,83 +258,83 @@
 
     .scenes-sidebar .directory-list .directory-item .document-name {
         a {
-            color: @second-color;
+            color: var(--hibern-color-second);
         }
     }
 
     li.folder.collapsed > .folder-header {
-        background: @main-color;
+        background: var(--hibern-color-main);
 
         h3, a {
-            color: @second-color;
+            color: var(--hibern-color-second);
         }
     }
 
     li.folder > .folder-header {
-        background: @second-color;
+        background: var(--hibern-color-second);
         
         h3, a {
-            color: @main-color;
+            color: var(--hibern-color-main);
         }
     }
 
     .subdirectory {
-        border-left: 10px solid @main-color;
+        border-left: 10px solid var(--hibern-color-main);
     }
 
     .compendium-sidebar {
         h3 {
-            background: @second-color-opacity;
+            background: var(--hibern-color-second-opacity);
         }
 
         li.compendium-pack .compendium-footer {
-            color: @main-color;
+            color: var(--hibern-color-main);
         }
     }
 
     .settings-sidebar {
         h2 {
-            background: @second-color-opacity;
+            background: var(--hibern-color-second-opacity);
         }
     }
 }
 
 #sidebar.collapsed {
     .item {
-        border-radius: @main-radius !important;
+        border-radius: var(--hibern-radius-main) !important;
         margin: 1px 0 1px 0;
     }
 }
 
 .app {
-    background: @main-color-opacity;
-    color: @second-color;
+    background: var(--hibern-color-main-opacity);
+    color: var(--hibern-color-second);
     border-radius: 15px 15px 0px 0px;
 }
 
 .window-app .window-content {
-    background: @second-color;
-    color: @main-color;
+    background: var(--hibern-color-second);
+    color: var(--hibern-color-main);
 
     button {
-        border-radius: @main-radius;
-        color: @second-color;
-        background-color: @main-color;
+        border-radius: var(--hibern-radius-main);
+        color: var(--hibern-color-second);
+        background-color: var(--hibern-color-main);
         border: none;
     }
 
     button.default {
-        background: @second-color;
-        color: @main-color;
-        border: 1px solid @main-color;
+        background: var(--hibern-color-second);
+        color: var(--hibern-color-main);
+        border: 1px solid var(--hibern-color-main);
     }
 
     /*select {
-        border: 1px solid @main-color;
+        border: 1px solid var(--hibern-color-main);
     }*/
 
     .notes {
-        color: @black-color;
+        color: var(--hibern-color-black);
     }
 }
 
@@ -344,11 +344,11 @@
     pointer-events: none;
 
     .bar-controls {
-        background: @main-color-opacity;
-        border: 1px solid @second-color;
+        background: var(--hibern-color-main-opacity);
+        border: 1px solid var(--hibern-color-second);
 
         a, .page-number {
-            color: @second-color;
+            color: var(--hibern-color-second);
         }
     }
 
@@ -356,12 +356,12 @@
         border: none;
 
         .macro {
-            background: @main-color-opacity;
-            border: 1px solid @second-color;
+            background: var(--hibern-color-main-opacity);
+            border: 1px solid var(--hibern-color-second);
 
             .macro-key {
-                color: @main-color;
-                background: @second-color-opacity;
+                color: var(--hibern-color-main);
+                background: var(--hibern-color-second-opacity);
             }
         }
     }
@@ -373,19 +373,19 @@
 
 .placeable-hud {
     .control-icon {
-        border: 1px solid @second-color;
-        background: @main-color-opacity;
-        color: @second-color;
-        border-radius: @main-radius;
+        border: 1px solid var(--hibern-color-second);
+        background: var(--hibern-color-main-opacity);
+        color: var(--hibern-color-second);
+        border-radius: var(--hibern-radius-main);
     
         img {
             opacity: 1;
         }
     
         &:hover, &.active {
-            border: 1px solid @main-color;
-            color: @main-color;
-            background: @second-color-opacity;
+            border: 1px solid var(--hibern-color-main);
+            color: var(--hibern-color-main);
+            background: var(--hibern-color-second-opacity);
     
             img {
                 opacity: 1;
@@ -399,9 +399,9 @@
     }
 
     input[type="text"] {
-        background: @main-color-opacity;
-        color: @second-color;
-        border: 1px solid @second-color;
+        background: var(--hibern-color-main-opacity);
+        color: var(--hibern-color-second);
+        border: 1px solid var(--hibern-color-second);
     }
 
     /*.bottom {
@@ -422,11 +422,11 @@
     overflow-y: hidden;
 
     .tabs {
-        border: 1px solid @main-color;
-        background: @main-color;
-        color: @second-color;
+        border: 1px solid var(--hibern-color-main);
+        background: var(--hibern-color-main);
+        color: var(--hibern-color-second);
         padding: 5px;
-        border-radius: @main-radius;
+        border-radius: var(--hibern-radius-main);
 
         .item {
             font-weight: bold;
@@ -435,14 +435,14 @@
             width: 100%;
         }
         .item:hover {
-            text-shadow: 0 0 5px @second-color;
-            color: @main-color;
+            text-shadow: 0 0 5px var(--hibern-color-second);
+            color: var(--hibern-color-main);
         }
     }
 
     .tab {
-        border: 1px solid @main-color;
-        border-radius: @main-radius;
+        border: 1px solid var(--hibern-color-main);
+        border-radius: var(--hibern-radius-main);
         margin-top: 5px;
         height: 570px;
         padding: 5px;
@@ -450,25 +450,25 @@
 
     .rack-item {
         padding: 5px 2px 5px 2px;
-        border-top: 1px solid @main-color;
+        border-top: 1px solid var(--hibern-color-main);
 
-        .actif { color: @actif-color; }
-        .passif { color: @passif-color; }
-        .ASName { color: @passif-color; }
+        .actif { color: var(--hibern-color-active); }
+        .passif { color: var(--hibern-color-passive); }
+        .ASName { color: var(--hibern-color-passive); }
     }
     .rack-item:last-child {
-        border-bottom: 1px solid @main-color;
+        border-bottom: 1px solid var(--hibern-color-main);
     }
 }
 
 #menu {
-    background: @main-color-opacity;
-    border: 1px solid @second-color;
-    border-radius: @main-radius;
+    background: var(--hibern-color-main-opacity);
+    border: 1px solid var(--hibern-color-second);
+    border-radius: var(--hibern-radius-main);
 
     #menu-items {
         li:not(:last-child) {
-            border-bottom: 1px solid @second-color;
+            border-bottom: 1px solid var(--hibern-color-second);
         }
     }
 }
