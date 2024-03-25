@@ -155,7 +155,9 @@
 
     .radius-background {
         background-color: @second-color;
-        border-radius: @main-radius;
+        border-bottom-left-radius: @main-radius;
+        border-bottom-right-radius: @main-radius;
+        box-shadow: 0 0 4px @black-color;
     }
 
     .border-right {
@@ -309,6 +311,10 @@
     }
 
     .inventory-display {
+        color: @black-color;
+        border-radius: @main-radius;
+        box-shadow: 0 0 4px @black-color;
+
         h2 {
             text-align: center;
             font-weight: bold;
@@ -407,6 +413,7 @@
     .spells {
         color: @black-color;
         border-radius: @main-radius;
+        box-shadow: 0 0 4px @black-color;
 
         .actif {
             color: @actif-color;

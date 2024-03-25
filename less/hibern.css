@@ -260,7 +260,9 @@
 }
 .hibern.sheet.personnage .radius-background {
   background-color: white;
-  border-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0 0 4px black;
 }
 .hibern.sheet.personnage .border-right {
   border-right: 0.5px solid black;
@@ -384,6 +386,11 @@
 .hibern.sheet.personnage .will-points .value-display .values {
   font-size: large;
 }
+.hibern.sheet.personnage .inventory-display {
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 0 4px black;
+}
 .hibern.sheet.personnage .inventory-display h2 {
   text-align: center;
   font-weight: bold;
@@ -470,6 +477,7 @@
 .hibern.sheet.personnage .spells {
   color: black;
   border-radius: 10px;
+  box-shadow: 0 0 4px black;
 }
 .hibern.sheet.personnage .spells .actif {
   color: #ff9900;
