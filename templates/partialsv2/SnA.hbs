@@ -1,4 +1,6 @@
 <div class="SnA">
+    <input class="SearchFilter" name="SnASearch" type="text" placeholder="{{localize "hibern.Divers.SearchFilter"}}">
+
     <div class="table-display">
         <h2 class="name">Spell Cards
         {{#EditMode actor}}
@@ -22,7 +24,7 @@
             </tr>
         </table>
         <div class="scroll-container table-border">
-            <table class="item-list">
+            <table class="item-list" id="spell-list">
                 {{#if (eq spellcards.length 0)}}
                 <tr>
                     <td style="text-align: center;">{{localize "hibern.chars.NoSpells"}}</td>
@@ -30,8 +32,10 @@
                 {{else}}
                     {{#each spellcards as |spell id|}}
                     <tr class="item spell-table-content" data-itemid="{{spell._id}}" data-item-id="{{spell._id}}">
-                        <td class="item-name spell-name"><a class="use-spellcard fullsizelinkwidth text-flow1
-                            {{#if (eq spell.system.AS true)}}ASName{{/if}}" data-itemid="{{spell._id}}">({{spell.system.Fatigue}}) {{spell.name}}</a></td>
+                        <td class="item-name spell-name">
+                            <a class="use-spellcard fullsizelinkwidth text-flow1
+                            {{#if (eq spell.system.AS true)}}ASName{{/if}}" data-itemid="{{spell._id}}">
+                            ({{spell.system.Fatigue}}) {{spell.name}}</a></td>
                         <td class="item-description">
                             <span class="text-flow1">{{breaklines spell.system.Description}}</span>
                         </td>
@@ -55,7 +59,7 @@
             {{/EditMode}}
         </h2>
         <div class="scroll-container table-border">
-            <table class="item-list">
+            <table class="item-list" id="ability-list">
                 {{#if (eq abilities.length 0)}}
                 <tr>
                     <td style="text-align: center;">{{localize "hibern.chars.NoAbilities"}}</td>

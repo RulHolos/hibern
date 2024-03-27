@@ -97,6 +97,7 @@
             "ReussiteAuto": "Automatic Success !"
         },
         "Divers": {
+            "SearchFilter": "Search by name...",
             "Accepter": "Accept",
             "Annuler": "Cancel",
             "EnnemiRoll": "Enemy's roll",

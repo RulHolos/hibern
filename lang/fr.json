@@ -97,6 +97,7 @@
             "ReussiteAuto": "Réussite Automatique !"
         },
         "Divers": {
+            "SearchFilter": "Rechercher par nom...",
             "Accepter": "Accepter",
             "Annuler": "Annuler",
             "EnnemiRoll": "Résultat ennemi",

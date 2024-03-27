@@ -4,18 +4,30 @@
             <div class="sidebar">
                 {{> "systems/hibern/templates/partialsv2/sidebar.hbs" }}
             </div>
+            <nav class="tabs" data-group="primary">
+                <a class="item control" data-group="primary" data-tab="SnA" data-tooltip="{{localize "hibern.Tabs.SnA"}}">
+                    <i class="fas fa-list"></i></a>
+                {{#if (eq actor.type "personnage")}}
+                <a class="item control" data-group="primary" data-tab="Summons" data-tooltip="{{localize "hibern.Tabs.Summons"}}">
+                    <i class="fas fa-address-book"></i></a>
+                {{/if}}
+                <a class="item control" data-group="primary" data-tab="Inventory" data-tooltip="{{localize "hibern.Tabs.Inventaire"}}">
+                    <i class="fas fa-briefcase"></i></a>
+                <a class="item control" data-group="primary" data-tab="Details" data-tooltip="{{localize "hibern.Tabs.Details"}}">
+                    <i class="fas fa-feather-pointed"></i></a>
+            </nav>
             <div class="tab-body">
-                <div class="tab" data-group="primary-tabs" data-tab="SnA">
+                <div class="tab SnA" data-group="primary" data-tab="SnA">
                     {{> "systems/hibern/templates/partialsv2/SnA.hbs"}}
                 </div>
-                <div class="tab" data-group="primary-tabs" data-tab="Summons">
-                    b
+                <div class="tab Summons" data-group="primary" data-tab="Summons">
+                    {{> "systems/hibern/templates/partialsv2/Summons.hbs"}}
                 </div>
-                <div class="tab" data-group="primary-tabs" data-tab="Inventory">
+                <div class="tab Inventory" data-group="primary" data-tab="Inventory">
                     {{> "systems/hibern/templates/partialsv2/Inventory.hbs"}}
                 </div>
-                <div class="tab" data-group="primary-tabs" data-tab="Details">
-                    d
+                <div class="tab Details" data-group="primary" data-tab="Details">
+                    {{> "systems/hibern/templates/partialsv2/Details.hbs"}}
                 </div>
             </div>
         </div>

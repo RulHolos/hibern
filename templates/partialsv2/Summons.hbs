@@ -1,0 +1,55 @@
+<div class="Summons">
+    <input class="SearchFilter" name="SummonsSearch" type="text" placeholder="{{localize "hibern.Divers.SearchFilter"}}">
+
+    <ol class="invocation-list">
+    {{#each invocations as |invocation index|}}
+        <ul class="invocation" data-summonid="{{invocation._id}}">
+            <span class="summon-name">
+                <a class="open-invocation-sheet item-name" data-index="{{index}}">{{invocation.name}}</a>
+            {{#EditMode ../actor}}
+                <a class="delete-summon-reference" data-index="{{index}}"><i class="fas fa-trash"></i></a>
+            {{/EditMode}}
+            </span>
+            <div class="summon-content">
+                <ol class="header">
+                    <ul>
+                        <img src="{{invocation.img}}" title="{{invocation.name}}" height="100" width="100" class="summon-img" />
+                    </ul>
+                    <ul>
+                        <span class="name">{{localize "hibern.stats.PV"}}</span><br>
+                        <span class="value">
+                            {{invocation.system.PV.value}} / {{invocation.system.PV.max}}
+                        </span>
+                    </ul>
+                </ol>
+                <ol class="stats">
+                    <ul>
+                        <span class="name">{{localize "hibern.stats.Force"}}</span><br>
+                        <span class="value">{{invocation.system.FOR.value}}</span>
+                    </ul>
+                    <ul>
+                        <span class="name">{{localize "hibern.stats.Magie"}}</span><br>
+                        <span class="value">{{invocation.system.MAG.value}}</span>
+                    </ul>
+                    <ul>
+                        <span class="name">{{localize "hibern.stats.Dextérité"}}</span><br>
+                        <span class="value">{{invocation.system.DEX.value}}</span>
+                    </ul>
+                    <ul>
+                        <span class="name">{{localize "hibern.stats.Constitution"}}</span><br>
+                        <span class="value">{{invocation.system.CON.value}}</span>
+                    </ul>
+                    <ul>
+                        <span class="name">{{localize "hibern.stats.Erudition"}}</span><br>
+                        <span class="value">{{invocation.system.ERU.value}}</span>
+                    </ul>
+                    <ul>
+                        <span class="name">{{localize "hibern.stats.Charisme"}}</span><br>
+                        <span class="value">{{invocation.system.CHA.value}}</span>
+                    </ul>
+                </ol>
+            </div>
+        </ul>
+    {{/each}}
+    </ol>
+</div>

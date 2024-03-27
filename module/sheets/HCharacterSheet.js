@@ -10,6 +10,15 @@ export default class HCharacterSheet extends ActorSheet {
             resizable: false,
             classes: ["hibern", "sheet", "personnage2"],
             tabs: [{navSelector: ".tabs", contentSelector: ".tab-body", initial: "SnA"}],
+            filters: [
+                {inputSelector: 'input[name="SnASearch"]', contentSelector: "#spell-list"},
+                {inputSelector: 'input[name="SnASearch"]', contentSelector: "#ability-list"},
+                {inputSelector: 'input[name="InventorySearch"]', contentSelector: "#armes-list"},
+                {inputSelector: 'input[name="InventorySearch"]', contentSelector: "#accessoires-list"},
+                {inputSelector: 'input[name="InventorySearch"]', contentSelector: "#armors-list"},
+                {inputSelector: 'input[name="InventorySearch"]', contentSelector: "#objects-list"},
+                {inputSelector: 'input[name="SummonsSearch"]', contentSelector: ".invocation-list"},
+            ],
             dragDrop: [
                 {dragSelector: ".item-list .item", dropSelector: null},
                 {dragSelector: ".invocation-list .invocation", dropSelector: null}
@@ -88,19 +97,31 @@ export default class HCharacterSheet extends ActorSheet {
         return sheetData;
     }
 
-    async _renderOuter() {
+    _onSearchFilter(event, query, rgx, html) {
+        for (let action of html.querySelectorAll(".item, .invocation")) {
+            if (!query){
+                action.classList.remove("hidden");
+                continue;
+            }
+            const title = action.querySelector(".item-name")?.textContent;
+            const match = rgx.test(SearchFilter.cleanQuery(title));
+            action.classList.toggle("hidden", !match);
+        }
+    }
+
+    /*async _renderOuter() {
         const html = await super._renderOuter();
         
         const nav = document.createElement("nav");
         nav.classList.add("tabs");
-        nav.dataset.group = "primary-tabs";
+        nav.dataset.group = "primary";
         nav.append(...this.constructor.TABS.map(({ tab, label, icon, svg }) => {
             const item = document.createElement("a");
             item.classList.add("item", "control");
-            item.dataset.group = "primary-tabs";
+            item.dataset.group = "primary";
             item.dataset.tab = tab;
-            item.dataset.tooltip = label;
-            item.setAttribute("aria-label", label);
+            //item.dataset.tooltip = label;
+            //item.setAttribute("aria-label", label);
             if (icon) item.innerHTML = `<i class="${icon}"></i>`;
             else if (svg) item.innerHTML = `<b>a</b>`;
             return item;
@@ -108,12 +129,15 @@ export default class HCharacterSheet extends ActorSheet {
         html[0].insertAdjacentElement("afterbegin", nav);
         this._tabs = this.options.tabs.map(t => {
             t.callback = this._onChangeTab.bind(this);
-            if (this._tabs?.[0]?.active !== t.initial) t.initial = this._tabs?.[0]?.active ?? t.initial;
+            if (this._tabs?.[0]?.active !== t.initial)
+            {
+                t.initial = this._tabs?.[0]?.active ?? t.initial;
+            }
             return new TabsJustice(t);
-        })
+        });
 
         return html;
-    }
+    }*/
 
     activateListeners(html) {
         if (this.actor.isOwner) {

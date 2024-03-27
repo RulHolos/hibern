@@ -4,34 +4,33 @@
     /* ---------------------------- */
 
     nav.tabs {
-        --tab-full-width: 44px;
-        --tab-inactive-width: 34px;
+        --tab-full-height: 34px;
+        --tab-inactive-height: 24px;
         position: absolute;
-        left: 100%;
-        top: 10rem;
+        left: 42rem;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         gap: 0.25rem;
-        z-index: -1;
+        z-index: 5;
 
         .item {
             text-align: center;
         }
 
         > .item {
-            width: var(--tab-full-width);
-            height: 40px;
+            height: var(--tab-full-height);
+            width: 35px;
             position: relative;
             display: flex;
-            justify-content: end;
-            align-items: center;
-            padding-right: 0.75rem;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 0.35rem;
             background: var(--hibern-color-main);
             color: var(--hibern-color-second);
             --icon-fill: var(--hibern-color-black);
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 0 8px 8px;
             font-size: var(--font-size-14);
-            margin-left: calc((var(--tab-full-width) - var(--tab-inactive-width)) * -1);
+            margin-top: calc((var(--tab-full-height) - var(--tab-inactive-height)) * -1);
             transition: all 250ms ease;
         }
 
@@ -40,6 +39,7 @@
             margin: 0;
             border-color: var(--hibern-color-black);
             box-shadow: 0 0 6px var(--hibern-color-black);
+            padding-bottom: 0.6rem;
         }
     }
 
@@ -47,13 +47,13 @@
     /* Minimized                    */
     /* ---------------------------- */
 
-    &.minimized {
+    /*&.minimized {
         border: unset;
 
         nav.tabs {
             display: none;
         }
-    }
+    }*/
 
     /* ---------------------------- */
     /* Collapsed                    */
@@ -93,10 +93,14 @@
             gap: 12px;
             position: absolute;
             inset: 0;
-            padding-right: 8px;
+            //padding-right: 8px;
             padding-left: 8px;
             overflow: hidden auto;
             transition: all 450ms ease;
+        }
+
+        .tab-body {
+            overflow-y: scroll;
         }
 
         .sidebar {
@@ -372,8 +376,53 @@
         }
 
         /// Spell-Cards and Abilities
-        .SnA {
+        .SnA, .Inventory, .Summons, .Details {
             margin: 15px 5px;
+
+            .SearchFilter {
+                margin-bottom: 15px;
+            }
+
+            .mons-display {
+                margin-bottom: 15px;
+                border-radius: var(--hibern-radius-second);
+                box-shadow: 0 0 6px var(--hibern-color-black);
+                display: flex;
+                width: 20%;
+                height: 20px;
+
+                span {
+                    display: flex;
+                    width: 100%;
+                    height: 100%;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .name {
+                    background-color: var(--hibern-color-main);
+                    border-top-left-radius: var(--hibern-radius-second);
+                    border-bottom-left-radius: var(--hibern-radius-second);
+                    color: var(--hibern-color-second);
+                }
+
+                .value {
+                    background-color: var(--hibern-color-second);
+                    border-top-right-radius: var(--hibern-radius-second);
+                    border-bottom-right-radius: var(--hibern-radius-second);
+
+                    > input {
+                        border: none;
+                        background: none;
+                        box-shadow: none;
+                        height: 100%;
+                        width: 100%;
+                        text-align: center;
+                        .bold();
+                        color: var(--hibern-color-main);
+                    }
+                }
+            }
 
             .table-display {
                 margin-bottom: 15px;
@@ -488,66 +537,79 @@
                     border-right: 1px solid var(--hibern-color-main);
                 }
             }
-        }
 
-        .Inventory {
-            margin: 15px 5px;
+            ul, ol {
+                margin: 0;
+                padding: 0;
+            }
 
-            .inventory-display {
+            .invocation {
+                display: flex;
+                flex-direction: column;
                 margin-bottom: 15px;
-                color: var(--hibern-color-black);
                 border-radius: var(--hibern-radius-main);
                 box-shadow: 0 0 6px var(--hibern-color-black);
+                background-color: var(--hibern-color-second);
+                border-bottom-left-radius: var(--hibern-radius-main);
+                border-bottom-right-radius: var(--hibern-radius-main);
 
-                h2 {
-                    text-align: center;
-                    font-weight: bold;
-                    font-size: large;
-                    padding: 4px;
-                    background-color: var(--hibern-color-main);
-                    color: var(--hibern-color-second);
+                .summon-name {
                     border-top-left-radius: var(--hibern-radius-main);
                     border-top-right-radius: var(--hibern-radius-main);
+                    color: var(--hibern-color-second);
+                    background-color: var(--hibern-color-main);
+                    .bold();
+                    text-align: center;
+                    font-size: medium;
+                    padding: 0.3rem 0;
                 }
-        
-                .inventory-item {
-                    border: 1px dotted var(--hibern-color-third);
-                    border-radius: var(--hibern-radius-second);
-                    //background-color: whitesmoke;
-                    padding: 2px;
-                }
-        
-                .content {
-                    background-color: var(--hibern-color-second);
-                    border: 1px solid var(--hibern-color-third);
-                    border-bottom-left-radius: var(--hibern-radius-main);
-                    border-bottom-right-radius: var(--hibern-radius-main);
-                    max-height: 120px;
-                }
-        
-                .mons-input {
-                    border: none;
-                    width: 50px;
-                    font-weight: bold;
-                }
-        
-                table {
-                    background: none;
-        
-                    td {
-                        border-bottom: hidden;
-                        border-top: hidden;
-                        padding: 4px;
+
+                .summon-content {
+                    display: flex;
+                    
+                    ul {
+                        padding: 0.3rem;
                         text-align: center;
                     }
-        
-                    tr:nth-child(odd) {
-                        background-color: var(--hibern-color-second);
+
+                    .name {
+                        .bold();
+                        font-size: 16px;
+                        text-decoration: underline;
+                        color: var(--hibern-color-main);
                     }
-        
-                    tr:nth-child(even) {
-                        background-color: var(--hibern-color-fourth);
+
+                    .value {
+                        .bold();
+                        font-size: 14px;
                     }
+                }
+
+                .header {
+                    display: flex;
+                    flex-direction: column;
+
+                    img {
+                        object-fit: cover;
+                        object-position: 50% 0;
+                        border: none;
+                        flex: 0;
+                        margin-right: auto;
+                        margin-left: auto;
+                        text-align: center;
+                        display: block;
+                        border-radius: var(--hibern-radius-main);
+                        background-color: var(--hibern-color-main);
+                        pointer-events: none;
+                        min-height: 100px;
+                        min-width: 100px;
+                    }
+                }
+
+                .stats {
+                    display: grid;
+                    grid-template-columns: auto auto auto;
+                    width: 100%;
                 }
             }
         }

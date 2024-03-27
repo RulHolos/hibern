@@ -22,6 +22,8 @@ async function preloadHandlebarsTemplates() {
         "systems/hibern/templates/partialsv2/sidebar.hbs",
         "systems/hibern/templates/partialsv2/SnA.hbs",
         "systems/hibern/templates/partialsv2/Inventory.hbs",
+        "systems/hibern/templates/partialsv2/Summons.hbs",
+        "systems/hibern/templates/partialsv2/Details.hbs",
     ];
     return loadTemplates(templatePaths);
 }
