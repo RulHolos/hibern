@@ -1,3 +1,40 @@
 <div class="Details">
-    <span>Coucou c'est les détails</span>
+    <div class="details">
+        <div class="detail-item">
+            <label>{{localize "hibern.chars.title"}}</label>
+            {{#EditMode actor}}<input type="text" name="system.title" value="{{actor.system.title}}" />
+            {{else}}<span class="value">{{actor.system.title}}</span>{{/EditMode}}
+        </div>
+        <div class="detail-item">
+            <label>{{localize "hibern.chars.species"}}</label>
+            {{#EditMode actor}}<input type="text" name="system.species" value="{{actor.system.species}}" />
+            {{else}}<span class="value">{{actor.system.species}}</span>{{/EditMode}}
+        </div>
+        <div class="detail-item">
+            <label>{{localize "hibern.chars.alignment"}}</label>
+            {{#EditMode actor}}<input type="text" name="system.alignment" value="{{actor.system.alignment}}"/>
+            {{else}}<span class="value">{{actor.system.alignment}}</span>{{/EditMode}}
+        </div>
+        <div class="detail-item">
+            <label>{{localize "hibern.chars.gender"}}</label>
+            {{#EditMode actor}}<input type="text" name="system.gender" value="{{actor.system.gender}}"/>
+            {{else}}<span class="value">{{actor.system.gender}}</span>{{/EditMode}}
+        </div>
+        <div class="detail-item">
+            <label>{{localize "hibern.chars.age"}}</label>
+            {{#EditMode actor}}<input type="text" name="system.age" value="{{actor.system.age}}"/>
+            {{else}}<span class="value">{{actor.system.age}}</span>{{/EditMode}}
+        </div>
+    </div>
+    
+    <div class="bio-notes">
+        <div class="biography">
+            <h2>{{localize "hibern.chars.biography"}}</h2>
+            {{editor system.biography target="system.biography" button=true engine="prosemirror" collaborate=false}}
+        </div>
+        <div class="notes">
+            <h2>{{localize "hibern.chars.notes"}}</h2>
+            {{editor system.notes target="system.notes" button=true engine="prosemirror" collaborate=false}}
+        </div>
+    </div>
 </div>

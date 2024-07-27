@@ -36,9 +36,19 @@
                             <a class="use-spellcard fullsizelinkwidth text-flow1
                             {{#if (eq spell.system.AS true)}}ASName{{/if}}" data-itemid="{{spell._id}}">
                             ({{spell.system.Fatigue}}) {{spell.name}}</a></td>
+                        {{#if (eq spell.system.AS true)}}
+                        <td class="item-description">
+                            {{#if (eq ../isAS true)}}
+                            <span class="text-flow1">{{breaklines spell.system.ASDescription}}</span>
+                            {{else}}
+                            <span class="text-flow1">{{breaklines spell.system.Description}}</span>
+                            {{/if}}
+                        </td>
+                        {{else}}
                         <td class="item-description">
                             <span class="text-flow1">{{breaklines spell.system.Description}}</span>
                         </td>
+                        {{/if}}
                         {{#EditMode ../actor}}
                         <td class="item-controls">
                             <a class="item-control item-delete" data-itemid="{{spell._id}}"><i class="fas fa-trash"></i></a>
@@ -69,9 +79,10 @@
                     <tr class="item spell-table-content" data-itemid="{{ability._id}}" data-item-id="{{ability._id}}">
                         <td class="item-name spell-name">
                             {{#if (eq ability.system.PostureCustom true)}}
-                                <span class="fullsizelinkwidth text-flow1 posture">
+                                <a class="use-ability fullsizelinkwidth text-flow1 posture"
+                                    data-itemid="{{ability._id}}">
                                     {{ability.name}}
-                                </span>
+                                </a>
                             {{else}}
                                 <a class="use-ability fullsizelinkwidth text-flow1 {{#if (eq ability.system.Actif true)}}actif{{else}}passif{{/if}}"
                                     data-itemid="{{ability._id}}">

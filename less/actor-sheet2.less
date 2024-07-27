@@ -12,6 +12,7 @@
         flex-direction: row;
         gap: 0.25rem;
         z-index: 5;
+        opacity: 0.8;
 
         .item {
             text-align: center;
@@ -335,6 +336,16 @@
                     gap: 0.5rem;
                     .field();
 
+                    .unable .stat-display {
+                        a {
+                            pointer-events: none;
+                        }
+
+                        input {
+                            pointer-events: none;
+                        }
+                    }
+
                     .stat-display {
                         display: block;
                         margin: 5px auto;
@@ -610,6 +621,67 @@
                     display: grid;
                     grid-template-columns: auto auto auto;
                     width: 100%;
+                }
+            }
+
+            .details {
+                display: grid;
+                grid-template-columns: auto auto auto;
+                padding-bottom: 15px;
+                gap: 0.5rem;
+                
+                .detail-item {
+                    border-radius: var(--hibern-radius-main);
+                    box-shadow: 0 0 6px var(--hibern-color-black);
+                }
+
+                label {
+                    display: flex;
+                    justify-content: center;
+                    border-top-left-radius: var(--hibern-radius-main);
+                    border-top-right-radius: var(--hibern-radius-main);
+                    color: var(--hibern-color-second);
+                    background-color: var(--hibern-color-main);
+                    .bold();
+                    text-align: center;
+                    font-size: medium;
+                    padding: 0.3rem 0;
+                }
+
+                .value {
+                    display: flex;
+                    width: 100%;
+                    padding: 5px;
+                    .bold();
+                    background-color: var(--hibern-color-second);
+                    color: var(--hibern-color-main);
+                    border-bottom-left-radius: var(--hibern-radius-main);
+                    border-bottom-right-radius: var(--hibern-radius-main);
+                }
+
+                input, input:hover, input:focus {
+                    box-shadow: none;
+                    background-color: var(--hibern-color-second);
+                    border: none;
+                    width: 100%;
+                    border-bottom-left-radius: var(--hibern-radius-main);
+                    border-bottom-right-radius: var(--hibern-radius-main);
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                }
+            }
+
+            .bio-notes {
+                display: flex;
+                flex-direction: column;
+
+                .editor {
+                    min-height: 350px;
+                }
+
+                h2 {
+                    color: var(--hibern-color-main);
+                    border-bottom: 1px solid var(--hibern-color-main);
                 }
             }
         }

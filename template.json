@@ -23,7 +23,12 @@
             },
             "description": {
                 "title": "",
-                "species": ""
+                "species": "",
+                "alignment": "",
+                "gender": "",
+                "age": "",
+                "biography": "",
+                "notes": ""
             },
             "checks": {
                 "lwready": "false",

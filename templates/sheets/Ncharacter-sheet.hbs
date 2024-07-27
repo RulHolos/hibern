@@ -1,15 +1,8 @@
-<form class="{{cssClass}}" autocomplete="off" style="background-color: #80808045; color: initial;">
-    <section class="content" style="height: 100%;">
-        <!--{{#if (eq system.EditModeOn true)}}
-            <p>Edit mode on</p>
-        {{/if}}-->
-        <div class="row">
-            <div class="col-8" style="margin: 5px;">
-                <!--Mettre le header avec l'espèce, le titre, et la dispo de la LW-->
-{{> "systems/hibern/templates/partials/header-block.hbs"}}
-            </div>
-            <div class="col-4" style="margin: 5px;">
-{{> "systems/hibern/templates/partials/stat-block.hbs"}}
+<form class="{{cssClass}}" autocomplete="off">
+    <section class="sheet-body">
+        <div class="main-content">
+            <div class="sidebar">
+                {{> "systems/hibern/templates/partialsv2/sidebar.hbs" }}
             </div>
         </div>
     </section>

@@ -13,6 +13,7 @@
         {{/EditMode}}
     </div>
 
+    {{#if actor.isOwner}}
     <!-- Life -->
     <div class="meter-group">
         <div class="label">
@@ -20,7 +21,8 @@
         </div>
         <div class="meter life progress" role="meter" aria-valuemin="0"
             aria-valuenow="{{system.PV.value}}" aria-valuemax="{{system.PV.max}}"
-            style="--bar-percentage: {{PVpercentage}}%">
+            style="--bar-percentage: {{PVpercentage}}%;
+            {{#if (eq isAS true)}}--hibern-color-life-full: var(--hibern-color-LW); --hibern-color-life-empty: var(--hibern-color-LW);{{/if}}">
             <div class="label">
                 <span class="value">{{system.PV.value}}</span>
                 <span class="separator">&sol;</span>
@@ -31,6 +33,7 @@
         </div>
     </div>
 
+    {{#if (eq actor.type "personnage")}}
     <!-- Will -->
     <div class="meter-group">
         <div class="label">
@@ -48,6 +51,7 @@
                 placeholder="0" value="{{system.WillPoints.value}}" hidden>
         </div>
     </div>
+    {{/if}}
 
     <div class="stat-block">
         <div class="stat-display">
@@ -66,7 +70,7 @@
             <input name="system.DEX.value" type="text" value="{{system.DEX.value}}" class="value" data-dtype="Number"/>
         </div>
         <div class="stat-display">
-            <span><a class="stats-test title" data-stat="{{system.CON.value}}" data-statname="{{localize "hibern.stats.Consitution"}}"
+            <span><a class="stats-test title" data-stat="{{system.CON.value}}" data-statname="{{localize "hibern.stats.Constitution"}}"
                 style="font-size: small;">{{localize "hibern.stats.Constitution"}}</a></span>
             <input name="system.CON.value" type="text" value="{{system.CON.value}}" class="value" data-dtype="Number"/>
         </div>
@@ -148,4 +152,7 @@
             {{/EditMode}}
         </div>
     {{/each}}
+    {{else}}
+        <span>Qu'est-ce que tu cherche ici</span>
+    {{/if}}
 </div>

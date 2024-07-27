@@ -85,7 +85,8 @@ export default class HCharacterSheet extends ActorSheet {
             abilities: data.items.filter(function (item) {return item.type == "Capacité"}),
             objets: data.items.filter(function (item) {return item.type == "Objet"}),
             custom_gauges: data.items.filter(function (item) {return item.type == "Jauge"}),
-            invocations: invocationList
+            invocations: invocationList,
+            isAS: IsCharInAS(baseData.actor)
         };
 
         const sidebarCollapsed = game.user.getFlag("hibern", `sheetPrefs.character.collapseSidebar`);
@@ -462,7 +463,7 @@ export default class HCharacterSheet extends ActorSheet {
         let RollBonus = 0;
         if (item.system.Composante != "None") {
             const Composante = newThis.actor.items.get(item.system.Composante);
-            let RollBonus = Composante.system.Spécialisation;
+            RollBonus = Composante.system.Spécialisation;
             const CompoStat = newThis.actor.system[Composante.system.stat].value;
             if (RollBonus >= CompoStat)
                 RollBonus = CompoStat;

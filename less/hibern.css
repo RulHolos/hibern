@@ -133,6 +133,7 @@
   flex-direction: row;
   gap: 0.25rem;
   z-index: 5;
+  opacity: 0.8;
 }
 .hibern.sheet.personnage2 nav.tabs .item {
   text-align: center;
@@ -400,6 +401,12 @@
   border-radius: var(--hibern-radius-main);
   margin: 10px 5px;
   padding: 5px;
+}
+.hibern.sheet.personnage2 .sheet-body .sidebar .card .stat-block .unable .stat-display a {
+  pointer-events: none;
+}
+.hibern.sheet.personnage2 .sheet-body .sidebar .card .stat-block .unable .stat-display input {
+  pointer-events: none;
 }
 .hibern.sheet.personnage2 .sheet-body .sidebar .card .stat-block .stat-display {
   display: block;
@@ -758,6 +765,91 @@
   display: grid;
   grid-template-columns: auto auto auto;
   width: 100%;
+}
+.hibern.sheet.personnage2 .sheet-body .SnA .details,
+.hibern.sheet.personnage2 .sheet-body .Inventory .details,
+.hibern.sheet.personnage2 .sheet-body .Summons .details,
+.hibern.sheet.personnage2 .sheet-body .Details .details {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding-bottom: 15px;
+  gap: 0.5rem;
+}
+.hibern.sheet.personnage2 .sheet-body .SnA .details .detail-item,
+.hibern.sheet.personnage2 .sheet-body .Inventory .details .detail-item,
+.hibern.sheet.personnage2 .sheet-body .Summons .details .detail-item,
+.hibern.sheet.personnage2 .sheet-body .Details .details .detail-item {
+  border-radius: var(--hibern-radius-main);
+  box-shadow: 0 0 6px var(--hibern-color-black);
+}
+.hibern.sheet.personnage2 .sheet-body .SnA .details label,
+.hibern.sheet.personnage2 .sheet-body .Inventory .details label,
+.hibern.sheet.personnage2 .sheet-body .Summons .details label,
+.hibern.sheet.personnage2 .sheet-body .Details .details label {
+  display: flex;
+  justify-content: center;
+  border-top-left-radius: var(--hibern-radius-main);
+  border-top-right-radius: var(--hibern-radius-main);
+  color: var(--hibern-color-second);
+  background-color: var(--hibern-color-main);
+  font-weight: bold;
+  text-align: center;
+  font-size: medium;
+  padding: 0.3rem 0;
+}
+.hibern.sheet.personnage2 .sheet-body .SnA .details .value,
+.hibern.sheet.personnage2 .sheet-body .Inventory .details .value,
+.hibern.sheet.personnage2 .sheet-body .Summons .details .value,
+.hibern.sheet.personnage2 .sheet-body .Details .details .value {
+  display: flex;
+  width: 100%;
+  padding: 5px;
+  font-weight: bold;
+  background-color: var(--hibern-color-second);
+  color: var(--hibern-color-main);
+  border-bottom-left-radius: var(--hibern-radius-main);
+  border-bottom-right-radius: var(--hibern-radius-main);
+}
+.hibern.sheet.personnage2 .sheet-body .SnA .details input,
+.hibern.sheet.personnage2 .sheet-body .Inventory .details input,
+.hibern.sheet.personnage2 .sheet-body .Summons .details input,
+.hibern.sheet.personnage2 .sheet-body .Details .details input,
+.hibern.sheet.personnage2 .sheet-body .SnA .details input:hover,
+.hibern.sheet.personnage2 .sheet-body .Inventory .details input:hover,
+.hibern.sheet.personnage2 .sheet-body .Summons .details input:hover,
+.hibern.sheet.personnage2 .sheet-body .Details .details input:hover,
+.hibern.sheet.personnage2 .sheet-body .SnA .details input:focus,
+.hibern.sheet.personnage2 .sheet-body .Inventory .details input:focus,
+.hibern.sheet.personnage2 .sheet-body .Summons .details input:focus,
+.hibern.sheet.personnage2 .sheet-body .Details .details input:focus {
+  box-shadow: none;
+  background-color: var(--hibern-color-second);
+  border: none;
+  width: 100%;
+  border-bottom-left-radius: var(--hibern-radius-main);
+  border-bottom-right-radius: var(--hibern-radius-main);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.hibern.sheet.personnage2 .sheet-body .SnA .bio-notes,
+.hibern.sheet.personnage2 .sheet-body .Inventory .bio-notes,
+.hibern.sheet.personnage2 .sheet-body .Summons .bio-notes,
+.hibern.sheet.personnage2 .sheet-body .Details .bio-notes {
+  display: flex;
+  flex-direction: column;
+}
+.hibern.sheet.personnage2 .sheet-body .SnA .bio-notes .editor,
+.hibern.sheet.personnage2 .sheet-body .Inventory .bio-notes .editor,
+.hibern.sheet.personnage2 .sheet-body .Summons .bio-notes .editor,
+.hibern.sheet.personnage2 .sheet-body .Details .bio-notes .editor {
+  min-height: 350px;
+}
+.hibern.sheet.personnage2 .sheet-body .SnA .bio-notes h2,
+.hibern.sheet.personnage2 .sheet-body .Inventory .bio-notes h2,
+.hibern.sheet.personnage2 .sheet-body .Summons .bio-notes h2,
+.hibern.sheet.personnage2 .sheet-body .Details .bio-notes h2 {
+  color: var(--hibern-color-main);
+  border-bottom: 1px solid var(--hibern-color-main);
 }
 .hibern.sheet.personnage {
   /*.text-flow:hover {
@@ -1949,6 +2041,12 @@
 #logo {
   content: url(../images/icon.png);
 }
+#pause img {
+  content: url(../images/icon.png);
+  left: calc(50% - 128px);
+  width: 256px;
+  --fa-animation-duration: none;
+}
 .placeable-hud {
   /*.bottom {
         width: 100%;
@@ -2104,21 +2202,21 @@
   --hibern-radius-main: 10px;
   --hibern-radius-second: 5px;
   --hibern-radius-third: 20px;
-  --hibern-color-main: brown;
+  --hibern-color-main: #a52a2a;
   --hibern-color-main-opacity: rgba(165, 42, 42, 0.7);
   --hibern-color-main-alternative: rgba(165, 42, 42, 0.8);
-  --hibern-color-second: white;
+  --hibern-color-second: #ffffff;
   --hibern-color-second-opacity: rgba(255, 255, 255, 0.7);
   --hibern-color-third: #555555;
   --hibern-color-fourth: #dbdbdb;
   --hibern-color-fifth: #cccccc;
-  --hibern-color-black: black;
+  --hibern-color-black: #000000;
   --hibern-color-life-empty: #006b00;
   --hibern-color-life-full: #00c500;
   --hibern-color-will-empty: #6f006f;
   --hibern-color-will-full: #cd00cd;
   --hibern-color-LW: #00eae6;
-  --hibern-color-active: #ff9900;
+  --hibern-color-active: #9e9600;
   --hibern-color-passive: #353584;
   --hibern-color-posture: #006400;
   --hibern-border-main: 1px solid var(--hibern-color-main);
