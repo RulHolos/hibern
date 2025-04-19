@@ -16,7 +16,11 @@
     {{#if (eq actor.type "personnage")}}
         <div class="border-around main-background energies-display" style="margin: 13px; padding: 5px;">
             <div class="value-display will">
-                <span class="bold">{{localize "hibern.stats.WillPoints"}}</span><br>
+                <span class="bold">{{localize "hibern.stats.WillPoints"}}</span>
+                {{#EditMode actor}}
+                    <input name="system.WillPoints.max" type="number" value="{{system.WillPoints.max}}" data-dtype="Number" class="will"/>
+                {{/EditMode}}
+                <br>
                 <span class="values"><input name="system.WillPoints.value" type="number" value="{{system.WillPoints.value}}" data-dtype="Number" class="will"/>
                     / {{system.WillPoints.max}}</span>
             </div>

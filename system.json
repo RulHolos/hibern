@@ -5,11 +5,11 @@
   "version": "2.0.1",
   "compatibility": {
     "minimum": "10.287",
-    "verified": "11.315",
-    "maximum": "11.315"
+    "verified": "12.331",
+    "maximum": "12.331"
   },
-  "url": "https://github.com/AtaeKurri/hibern",
-  "manifest": "https://github.com/AtaeKurri/hibern/blob/experimental/system.json",
+  "url": "https://github.com/RulHolos/hibern",
+  "manifest": "https://github.com/RulHolos/hibern/blob/experimental/system.json",
   "esmodules": ["hibern.js"],
   "styles": ["less/hibern.css"],
   "initiative": "1d6 + @DEX",
@@ -18,7 +18,7 @@
   "socket": true,
   "authors": [
     {
-      "name": "Tania Anehina",
+      "name": "Rül Hölos",
       "discord": "tania_anehina",
       "email": "hakussura@protonmail.com"
     }

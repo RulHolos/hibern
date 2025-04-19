@@ -39,6 +39,12 @@
         <div class="label">
             <span>{{localize "hibern.stats.WillPoints"}}</span>
         </div>
+        {{#EditMode actor}}
+        <div class="label">
+            <span class="value">Max</span>
+            <span class="max"><input name="system.WillPoints.max" type="text" value="{{system.WillPoints.max}}" data-dtype="Number" style="color: black !important;"/></span>
+        </div>
+        {{/EditMode}}
         <div class="meter will progress" role="meter" aria-valuemin="0"
             aria-valuenow="{{system.WillPoints.value}}" aria-valuemax="{{system.WillPoints.max}}"
             style="--bar-percentage: {{Willpercentage}}%">

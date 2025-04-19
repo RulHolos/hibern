@@ -29,7 +29,7 @@ export default class HItemSheet extends ItemSheet {
                 item: baseData.item,
                 data: baseData.item.system,
                 config: CONFIG.hibern,
-                abilities: this.actor.items.filter(function (item) {return (item.type == "Capacité" && item.system.Actif == true)}),
+                abilities: this.actor.items.filter(function (item) {return (item.type == "Capacité" && item.system.PostureCustom == false)}),
             };
         }
 

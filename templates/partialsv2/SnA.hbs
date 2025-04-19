@@ -6,7 +6,8 @@
         {{#EditMode actor}}
             <a class="item-create" data-itemname="Spell Card" data-type="Spell Card"><i class="fas fa-plus"></i></a>
             <small data-tooltip="Reset All Fatigue">(<a class="reset-all-fatigue"><i class="fas fa-recycle"></i></a>)</small>
-        {{/EditMode}}</h2>
+        {{/EditMode}}
+        </h2>
         <table class="baseatktable">
             <tr style="text-align: center; background-color: white;">
                 <th>
@@ -68,6 +69,18 @@
                 <a class="item-create" data-itemname="Capacité" data-type="Capacité"><i class="fas fa-plus"></i></a>
             {{/EditMode}}
         </h2>
+        <table class="baseatktable">
+            <tr style="text-align: center; background-color: white;">
+                <th>
+                    <a class="roll_esq" data-rolltype="Esquive" style="text-decoration: underline;">
+                        {{localize "hibern.chars.Esquive"}}</a>
+                </th>
+                <th>
+                    <a class="roll_esq" data-rolltype="Parade" style="text-decoration: underline;">
+                        {{localize "hibern.chars.Parade"}}</a>
+                </th>
+            </tr>
+        </table>
         <div class="scroll-container table-border">
             <table class="item-list" id="ability-list">
                 {{#if (eq abilities.length 0)}}

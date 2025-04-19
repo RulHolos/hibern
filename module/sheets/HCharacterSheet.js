@@ -906,9 +906,9 @@ Hooks.on("updateActor", (actor, sysdiff, diffrender, id) => {
                         //max: Math.floor((actor.system.CON.value+30))
                         max: Math.floor((10+actor.system.CON.value*4))
                     },
-                    WillPoints: {
+                    /*WillPoints: {
                         max: actor.system.CON.value+2
-                    },
+                    },*/
                     //lwready: (actor.system.PV.value <= actor.system.PV.max-CONFIG.hibern.ASSeuil)
                     lwready: (actor.system.PV.value <= actor.system.CON.value+4)
                 }
@@ -1089,40 +1089,42 @@ async function _rollEsq(type, actor) {
     const checkOptions = await GetEsquiveRollOptions(type);
     if (checkOptions.cancelled)
         return;
-    const stat = (type == "Esquive") ? actor.system.DEX.value : actor.system.CON.value;
 
-    let rollResult = new Roll(`1d20`);
-    rollResult = await rollResult.evaluate({async:true});
+    const { value: stat } = type === 'Esquive' ? actor.system.DEX : actor.system.CON;
+    const roll = new Roll('1d20');
+    const rollResult = await roll.evaluate({ async: true });
 
-    let successtype;
-    let localRes;
-    if (rollResult._total == 20) {
-        successtype = "CritSuccess";
-    } else if (rollResult._total+stat >= checkOptions.Seuil-stat) {
-        successtype = "Success";
-    } else if (rollResult._total == 1) {
-        successtype = "CritFailure";
+    let successType;
+    if (rollResult._total === 20) {
+        successType = "CritSuccess";
+    } else if (rollResult._total + stat >= checkOptions.Seuil - stat) {
+        successType = "Success";
+    } else if (rollResult._total === 1) {
+        successType = "CritFailure";
     } else {
-        successtype = "Failure";
+        successType = "Failure";
     }
-    localRes = successtype;
     
-    let rollResult2 = rollResult._total+stat;
+    const rollResult2 = rollResult._total + stat;
 
-    let chatData = {
-        user: game.user.id,
-        speaker: ChatMessage.getSpeaker()
-    };
-    let cardData = {
+    const currentCustomPost = actor.items.filter(function (item) {return (item._id == actor.system.posture)})[0];
+    let isCustomPosture = (CONFIG.hibern.corePostures.includes(currentCustomPost?.name)) ? false : true;
+    if (currentCustomPost?.name == undefined) {isCustomPosture = false;}
+
+    const cardData = {
         rollResult: rollResult2,
         rollResultFormula: `${rollResult.formula}(${rollResult.terms[0].results[0].result})+${stat} = ${rollResult2}/${checkOptions.Seuil}-${stat}(${checkOptions.Seuil-stat})`,
-        Successtype: successtype,
-        localizeResult: game.i18n.localize(`hibern.rolls.${localRes}`),
-        type: game.i18n.localize(`hibern.chars.${type}`)
+        SuccessType: successType,
+        localizeResult: game.i18n.localize(`hibern.rolls.${successType}`),
+        type: game.i18n.localize(`hibern.chars.${type}`),
+        Posture: (isCustomPosture) ? currentCustomPost.name : game.i18n.localize(`hibern.chars.posture${actor.system.posture}`)
     }
 
-    chatData.content = await renderTemplate("systems/hibern/templates/partials/esquive-card.hbs", cardData);
-    return rollResult.toMessage(chatData);
+    return rollResult.toMessage({
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker(),
+        content: await renderTemplate("systems/hibern/templates/partials/esquive-card.hbs", cardData)
+    });
 }
 
 //#endregion
