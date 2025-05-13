@@ -4,7 +4,7 @@
   "description": "Système de jeu adapté pour Touhou et Myara.",
   "version": "2.0.1",
   "compatibility": {
-    "minimum": "10.287",
+    "minimum": "12.330",
     "verified": "12.331",
     "maximum": "12.331"
   },
@@ -19,7 +19,7 @@
   "authors": [
     {
       "name": "Rül Hölos",
-      "discord": "tania_anehina",
+      "discord": "rul_holos",
       "email": "hakussura@protonmail.com"
     }
   ],
