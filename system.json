@@ -9,7 +9,7 @@
     "maximum": "12.331"
   },
   "url": "https://github.com/RulHolos/hibern",
-  "manifest": "https://github.com/RulHolos/hibern/blob/experimental/system.json",
+  "manifest": "https://github.com/RulHolos/hibern/blob/v2sheet/system.json",
   "esmodules": ["hibern.js"],
   "styles": ["less/hibern.css"],
   "initiative": "1d6 + @DEX",
