@@ -384,8 +384,10 @@
 .hibern.sheet.personnage2 .sheet-body .sidebar .card .meter-group .meter.gauge-item {
   --hibern-gauge-color-empty: var(--hibern-color-black);
   --hibern-gauge-color-full: var(--hibern-color-fifth);
+  --hibern-gauge-color-background: var(--hibern-color-main);
   height: 25px;
   font-size: 14px;
+  background-color: var(--hibern-gauge-color-background);
 }
 .hibern.sheet.personnage2 .sheet-body .sidebar .card .meter-group .meter.gauge-item.progress::before {
   background: linear-gradient(to right, var(--hibern-gauge-color-empty), var(--hibern-gauge-color-full) 100%);

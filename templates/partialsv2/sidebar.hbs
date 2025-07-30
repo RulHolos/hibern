@@ -115,7 +115,8 @@
                     aria-valuenow="{{system.PV.value}}" aria-valuemax="{{system.PV.max}}"
                     style="--bar-percentage: {{gauge.system.percentage}}%;
                     --hibern-gauge-color-empty: {{gauge.system.EmptyColor}};
-                    --hibern-gauge-color-full: {{gauge.system.FullColor}};">
+                    --hibern-gauge-color-full: {{gauge.system.FullColor}};
+                    --hibern-gauge-color-background: {{gauge.system.BgColor}};">
                     <div class="label">
                         <span class="values"><input type="number"
                             name="item.system.value"
@@ -139,7 +140,8 @@
                     aria-valuenow="{{system.PV.value}}" aria-valuemax="{{system.PV.max}}"
                     style="--bar-percentage: {{gauge.system.percentage}}%;
                     --hibern-gauge-color-empty: {{gauge.system.EmptyColor}};
-                    --hibern-gauge-color-full: {{gauge.system.FullColor}};">
+                    --hibern-gauge-color-full: {{gauge.system.FullColor}};
+                    --hibern-gauge-color-background: {{gauge.system.BgColor}};">
                     <div class="label">
                         <span class="values"><input type="number"
                             name="item.system.value"
@@ -159,6 +161,6 @@
         </div>
     {{/each}}
     {{else}}
-        <span>Qu'est-ce que tu cherche ici</span>
+        <span>Qu'est-ce que tu cherches ici ?</span>
     {{/if}}
 </div>

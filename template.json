@@ -132,7 +132,8 @@
             "max": 10,
             "percentage": 0,
             "FullColor": "#CCCCCC",
-            "EmptyColor": "#000000"
+            "EmptyColor": "#000000",
+            "BgColor": "#a52a2a"
         }
     }
 }

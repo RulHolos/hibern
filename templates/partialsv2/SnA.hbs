@@ -35,8 +35,11 @@
                     <tr class="item spell-table-content" data-itemid="{{spell._id}}" data-item-id="{{spell._id}}">
                         <td class="item-name spell-name">
                             <a class="use-spellcard fullsizelinkwidth text-flow1
-                            {{#if (eq spell.system.AS true)}}ASName{{/if}}" data-itemid="{{spell._id}}">
-                            ({{spell.system.Fatigue}}) {{spell.name}}</a></td>
+                                {{#if (eq spell.system.AS true)}}ASName{{/if}}" data-itemid="{{spell._id}}">
+                                {{spell.name}}
+                            <br>
+                                <span style="font-size: smaller;">(Fatigue: {{spell.system.Fatigue}})</span>
+                            </a></td>
                         {{#if (eq spell.system.AS true)}}
                         <td class="item-description">
                             {{#if (eq ../isAS true)}}
@@ -44,10 +47,12 @@
                             {{else}}
                             <span class="text-flow1">{{breaklines spell.system.Description}}</span>
                             {{/if}}
+                            <br><span class="text-flow1" style="font-size: smaller;">(Action: {{spell.system.ActionType}})</span>
                         </td>
                         {{else}}
                         <td class="item-description">
                             <span class="text-flow1">{{breaklines spell.system.Description}}</span>
+                            <br><span class="text-flow1" style="font-size: smaller;">(Action: {{spell.system.ActionType}})</span>
                         </td>
                         {{/if}}
                         {{#EditMode ../actor}}
@@ -99,7 +104,9 @@
                             {{else}}
                                 <a class="use-ability fullsizelinkwidth text-flow1 {{#if (eq ability.system.Actif true)}}actif{{else}}passif{{/if}}"
                                     data-itemid="{{ability._id}}">
-                                    {{#if (eq ability.system.Actif true)}}({{ability.system.Fatigue}}){{/if}} {{ability.name}}
+                                    {{ability.name}}
+                                    <br>
+                                    {{#if (eq ability.system.Actif true)}}<span style="font-size: smaller;">(Fatigue: {{ability.system.Fatigue}})</span>{{/if}}
                                 </a>
                             {{/if}}
                         </td>
