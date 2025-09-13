@@ -17,4 +17,10 @@
         <input type="checkbox" name="AffectFatigue" value="AffectFatigue" data-dtype="Boolean" checked/>
     </div>
     {{/if}}
+    {{#if (eq NeedReussiteAuto true)}}
+    <div class="form-group">
+        <label><b>{{localize "hibern.objects.ReussiteAuto"}}</b></label>
+        <input type="checkbox" name="ReussiteAuto" value="ReussiteAuto" data-dtype="Boolean" {{#if (eq ReussiteAuto true)}}checked{{/if}}/>
+    </div>
+    {{/if}}
 </form>

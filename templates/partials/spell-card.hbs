@@ -2,7 +2,7 @@
     <div class="roll">
         <div class="name {{#if (eq isAS true)}}ASName{{/if}}"><span>{{spell.name}}</span></div>
         <div class="{{Successtype}} content" style="text-align: center;">
-            {{#if (eq spell.system.ReussiteAuto true)}}
+            {{#if (eq reussiteAuto true)}}
                 <span style="text-decoration: underline;" class="big-number">{{localize "hibern.rolls.ReussiteAuto"}}</span><br>
             {{else}}
                 <span style="text-decoration: underline;" class="big-number" data-tooltip="{{rollResultFormula}}">{{rollResult}}</span></br>

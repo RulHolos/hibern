@@ -5,8 +5,8 @@
   "version": "2.0.1",
   "compatibility": {
     "minimum": "12.330",
-    "verified": "12.331",
-    "maximum": "12.331"
+    "verified": "12.343",
+    "maximum": "12.343"
   },
   "url": "https://github.com/RulHolos/hibern",
   "manifest": "https://github.com/RulHolos/hibern/blob/v2sheet/system.json",

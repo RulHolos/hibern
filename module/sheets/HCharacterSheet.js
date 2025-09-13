@@ -216,11 +216,13 @@ export default class HCharacterSheet extends ActorSheet {
 
     //#region Dialogs
 
-    async GetDiffRollOptions(needFatigue) {
+    async GetDiffRollOptions(needFatigue, needReussiteAuto, reussiteAuto) {
         const template = "systems/hibern/templates/partials/diff-dialog.hbs";
         const htmlParams = {
             difficulties: CONFIG.hibern.rolldiff,
-            NeedFatigue: needFatigue
+            NeedFatigue: needFatigue,
+            NeedReussiteAuto: needReussiteAuto,
+            ReussiteAuto: reussiteAuto
         };
         const html = await renderTemplate(template, htmlParams);
 
@@ -407,7 +409,7 @@ export default class HCharacterSheet extends ActorSheet {
         const statName = event.currentTarget.closest(".stats-test").dataset.statname;
         const testStat = event.currentTarget.closest(".stats-test").dataset.stat;
 
-        let checkOptions = await this.GetDiffRollOptions(false);
+        let checkOptions = await this.GetDiffRollOptions(false, true, false);
         if (checkOptions.cancelled) {
             return;
         }
@@ -469,7 +471,7 @@ export default class HCharacterSheet extends ActorSheet {
                 RollBonus = CompoStat;
         }
 
-        let checkOptions = await this.GetDiffRollOptions(true);
+        let checkOptions = await this.GetDiffRollOptions(true, true, item.system.ReussiteAuto);
         if (checkOptions.cancelled) {
             return;
         }
@@ -497,7 +499,7 @@ export default class HCharacterSheet extends ActorSheet {
         let rollResult;
         let rollResult2;
         let rollResult2Formula;
-        if (item.system.ReussiteAuto == false)
+        if (checkOptions.ReussiteAuto == false)
         {
             rollResult = new Roll(`1d20`);
             rollResult = await rollResult.evaluate({async:true});
@@ -527,13 +529,14 @@ export default class HCharacterSheet extends ActorSheet {
             rollResult: rollResult2,
             rollResultFormula: rollResult2Formula,
             Successtype: successtype,
+            reussiteAuto: checkOptions.ReussiteAuto,
             localizeResult: game.i18n.localize(`hibern.rolls.${successtype}`),
             localizeActionType: game.i18n.localize(`hibern.actions.${item.system.ActionType}`),
             Cost: parseInt(item.system.Cout)
         }
 
         chatData.content = await renderTemplate("systems/hibern/templates/partials/spell-card.hbs", cardData);
-        if (item.system.ReussiteAuto == false)
+        if (checkOptions.ReussiteAuto == false)
             return rollResult.toMessage(chatData);
         else
             return damageRoll.toMessage(chatData);
@@ -555,6 +558,7 @@ export default class HCharacterSheet extends ActorSheet {
         let rollResultFormula2 = "";
         let localRes;
         let successtype;
+        let reussiteAuto = ability.system.ReussiteAuto;
 
         let chatData = {
             user: game.user.id,
@@ -562,11 +566,12 @@ export default class HCharacterSheet extends ActorSheet {
         };
 
         if ((IsActive || ability.system.ReussiteAuto) && ability.system.PostureCustom == false) {
-            let checkOptions = await this.GetDiffRollOptions(true);
+            let checkOptions = await this.GetDiffRollOptions(true, true, ability.system.ReussiteAuto);
             if (checkOptions.cancelled) {
                 return;
             }
             newDiff = getAdjustedDiff(checkOptions.Diff, ability.system.Fatigue);
+            reussiteAuto = checkOptions.ReussiteAuto;
 
             if (checkOptions.AffectFatigue == true) {
                 const ftg = ability.system.Fatigue += (IsCharInAS(newThis.actor) && newThis.actor.type == "personnage") ? 2 : 1;
@@ -578,7 +583,7 @@ export default class HCharacterSheet extends ActorSheet {
                 lowerAllOtherFatigue(ability.type, newThis.actor, ability._id);
             }
 
-            if (ability.system.ReussiteAuto == false)
+            if (checkOptions.ReussiteAuto == false)
             {
                 rollResult = new Roll(`1d20`);
                 rollResult = await rollResult.evaluate({async:true});
@@ -611,6 +616,7 @@ export default class HCharacterSheet extends ActorSheet {
             rollResult: rollResult2,
             rollResultFormula: rollResultFormula2,
             Successtype: successtype,
+            reussiteAuto: reussiteAuto,
             localizeResult: game.i18n.localize(`hibern.rolls.${successtype}`),
         }
 
@@ -619,7 +625,7 @@ export default class HCharacterSheet extends ActorSheet {
             chatData.whisper = ChatMessage.getWhisperRecipients("GM")
         }*/
 
-        if (IsActive == true && ability.system.ReussiteAuto == false) {
+        if (IsActive == true && reussiteAuto == false) {
             return rollResult.toMessage(chatData);
         } else {
             return ChatMessage.create(chatData);
@@ -688,7 +694,7 @@ export default class HCharacterSheet extends ActorSheet {
         let checkOptions;
         if (context == "Atk") {
             localAtk = game.i18n.localize(`hibern.chars.atk${atkType}`);
-            checkOptions = await this.GetDiffRollOptions(true);
+            checkOptions = await this.GetDiffRollOptions(true, true, false);
             if (checkOptions.cancelled) {
                 return;
             }
@@ -948,7 +954,8 @@ function _processDiffOptions(form) {
     try {
         return {
             Diff: parseInt(form.Diff.value),
-            AffectFatigue: form.AffectFatigue.checked
+            AffectFatigue: form.AffectFatigue.checked,
+            ReussiteAuto: form.ReussiteAuto.checked,
         }
     } catch(err) {
         return {
